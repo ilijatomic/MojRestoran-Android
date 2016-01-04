@@ -43,6 +43,7 @@ public class SplashActivity extends AppCompatActivity {
             intent = new Intent(this, LoginActivity.class);
 
         startActivity(intent);
+        finish();
     }
 
     private void downloadDB() {

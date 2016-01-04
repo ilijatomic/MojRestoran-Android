@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import com.ilija.mojrestoran.model.MojRestoran;
 import com.ilija.mojrestoran.ui.LoginActivity;
 import com.ilija.mojrestoran.util.Constants;
-import com.ilija.mojrestoran.util.DB;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         downloadDB();
-        checkLogin();
+
     }
 
     private void checkLogin() {
@@ -63,11 +62,17 @@ public class SplashActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     MojRestoran mojRestoran = gson.fromJson(new InputStreamReader(inputStream), MojRestoran.class);
                     if (mojRestoran != null)
-                        DB.getInstance().setMojRestoran(mojRestoran);
+                        AppObject.getAppInstance().setMojRestoran(mojRestoran);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                checkLogin();
             }
         }.execute();
 

@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
 import com.ilija.mojrestoran.model.MojRestoran;
+import com.ilija.mojrestoran.ui.AdminHomeActivity;
+import com.ilija.mojrestoran.ui.BaseActivity;
+import com.ilija.mojrestoran.ui.KonobarHomeActivity;
 import com.ilija.mojrestoran.ui.LoginActivity;
 import com.ilija.mojrestoran.util.Constants;
 
@@ -17,7 +19,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     private static final String DB_URL = "https://www.dropbox.com/s/kilxntjowk6hr7f/restoran.json?raw=1";
 
@@ -37,9 +39,9 @@ public class SplashActivity extends AppCompatActivity {
         if (userLogin == null )
             intent = new Intent(this, LoginActivity.class);
         else if (userLogin.equals(Constants.USER_LOGIN_ADMIN))
-            intent = new Intent(this, LoginActivity.class);
+            intent = new Intent(this, AdminHomeActivity.class);
         else if (userLogin.equals(Constants.USER_LOGIN_WAITER))
-            intent = new Intent(this, LoginActivity.class);
+            intent = new Intent(this, KonobarHomeActivity.class);
 
         startActivity(intent);
         finish();

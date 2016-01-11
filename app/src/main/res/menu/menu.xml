@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/ic_account_box_white_36dp"
+        android:title="Profile"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/profile_details"
+                android:title="Profil" />
+            <item
+                android:id="@+id/profile_log_out"
+                android:title="Izloguj se" />
+        </menu>
+    </item>
+</menu>
+

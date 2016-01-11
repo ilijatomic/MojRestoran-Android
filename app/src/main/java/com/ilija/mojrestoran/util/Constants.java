@@ -9,4 +9,5 @@ public class Constants {
 
     public static final String USER_LOGIN_ADMIN = "user_login_admin";
     public static final String USER_LOGIN_WAITER = "user_login_waiter";
+
 }

@@ -31,4 +31,5 @@ public class AppObject extends Application {
     public void setMojRestoran(MojRestoran mojRestoran) {
         this.mojRestoran = mojRestoran;
     }
+
 }

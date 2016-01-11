@@ -53,20 +53,20 @@ public class LoginActivity extends BaseActivity {
     private void loginSuccess(Korisnik korisnik) {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences.edit().putString(Constants.PREF_USER_LOGIN, korisnik.getEmail()).commit();
         Intent intent = null;
 
         switch (korisnik.getTip()) {
             case "admin":
                 intent = new Intent(this, AdminHomeActivity.class);
-                sharedPreferences.edit().putString(Constants.PREF_USER_LOGIN, Constants.USER_LOGIN_ADMIN).commit();
                 break;
             case "konobar":
                 intent = new Intent(this, KonobarHomeActivity.class);
-                sharedPreferences.edit().putString(Constants.PREF_USER_LOGIN, Constants.USER_LOGIN_WAITER).commit();
                 break;
         }
 
         if (intent != null) {
+            AppObject.getAppInstance().setUlogovanKorisnik(korisnik);
             startActivity(intent);
             finish();
         }

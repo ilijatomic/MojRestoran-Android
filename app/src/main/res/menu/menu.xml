@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/ic_home_white_48dp"
+        android:title="Home"
+        app:showAsAction="always">
+
+    </item>
+
+    <item
         android:id="@+id/menu_profile"
         android:icon="@drawable/ic_account_box_white_36dp"
         android:title="Profile"
@@ -16,5 +24,7 @@
                 android:title="Izloguj se" />
         </menu>
     </item>
+
+
 </menu>
 

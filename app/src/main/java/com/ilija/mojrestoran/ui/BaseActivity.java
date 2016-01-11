@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.ilija.mojrestoran.AppObject;
@@ -16,60 +17,75 @@ import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.SplashActivity;
 import com.ilija.mojrestoran.util.Constants;
 
+import java.util.ArrayList;
+
 public class BaseActivity extends AppCompatActivity {
 
+    private boolean showHomeButton = false;
+
     protected void addToolbar(boolean showHomeButton) {
+        this.showHomeButton = showHomeButton;
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        findViewById(R.id.home).setVisibility(showHomeButton ? View.VISIBLE : View.GONE);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(!showHomeButton);
-
-        ImageView home = (ImageView) findViewById(R.id.home);
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = null;
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                String userLogin = sharedPreferences.getString(Constants.PREF_USER_LOGIN, "");
-                switch (userLogin) {
-                    case Constants.USER_LOGIN_ADMIN:
-                        intent = new Intent(AppObject.getAppInstance().getApplicationContext(), AdminHomeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        break;
-                    case Constants.USER_LOGIN_WAITER:
-                        intent = new Intent(AppObject.getAppInstance().getApplicationContext(), KonobarHomeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        break;
-                }
-
-                if (intent != null)
-                    startActivity(intent);
-
-            }
-        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        menu.findItem(R.id.menu_home).setVisible(showHomeButton);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent = null;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         switch (item.getItemId()) {
             case R.id.menu_profile:
                 return true;
             case R.id.profile_log_out:
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
                 sharedPreferences.edit().putString(Constants.PREF_USER_LOGIN, null).commit();
-                Intent intent = new Intent(AppObject.getAppInstance().getApplicationContext(), SplashActivity.class);
+                intent = new Intent(AppObject.getAppInstance().getApplicationContext(), SplashActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 return true;
+
+            case R.id.menu_home:
+                String userLogin = AppObject.getAppInstance().getUlogovanKorisnik().getTip();
+                switch (userLogin) {
+                    case Constants.USER_LOGIN_ADMIN:
+                        intent = new Intent(AppObject.getAppInstance().getApplicationContext(), AdminHomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        break;
+                    case Constants.USER_LOGIN_KONOBAR:
+                        intent = new Intent(AppObject.getAppInstance().getApplicationContext(), KonobarHomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        break;
+                }
+                if (intent != null)
+                    startActivity(intent);
+                return true;
+
+            case R.id.profile_details:
+                intent = new Intent(AppObject.getAppInstance().getApplicationContext(), ProfilDetaljiActivity.class);
+                startActivity(intent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    protected boolean checkRequiredFields(ArrayList<EditText> listaPolja) {
+        boolean success = true;
+        for (EditText editText : listaPolja) {
+            if (editText.getText().toString().isEmpty()) {
+                editText.setError("Obavezno polje!");
+                success = false;
+            }
+        }
+
+        return success;
     }
 }

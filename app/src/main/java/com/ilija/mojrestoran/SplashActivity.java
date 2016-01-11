@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
+import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.MojRestoran;
 import com.ilija.mojrestoran.ui.AdminHomeActivity;
 import com.ilija.mojrestoran.ui.BaseActivity;
@@ -38,10 +39,16 @@ public class SplashActivity extends BaseActivity {
         Intent intent = null;
         if (userLogin == null )
             intent = new Intent(this, LoginActivity.class);
-        else if (userLogin.equals(Constants.USER_LOGIN_ADMIN))
-            intent = new Intent(this, AdminHomeActivity.class);
-        else if (userLogin.equals(Constants.USER_LOGIN_WAITER))
-            intent = new Intent(this, KonobarHomeActivity.class);
+        else {
+            for (Korisnik korisnik : AppObject.getAppInstance().getMojRestoran().getKorisnikArrayList()) {
+                if (korisnik.getEmail().equals(userLogin))
+                    AppObject.getAppInstance().setUlogovanKorisnik(korisnik);
+            }
+            if (AppObject.getAppInstance().getUlogovanKorisnik().getTip().equals(Constants.USER_LOGIN_ADMIN))
+                intent = new Intent(this, AdminHomeActivity.class);
+            else if (AppObject.getAppInstance().getUlogovanKorisnik().getTip().equals(Constants.USER_LOGIN_KONOBAR))
+                intent = new Intent(this, KonobarHomeActivity.class);
+        }
 
         startActivity(intent);
         finish();

@@ -1,12 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.ilija.mojrestoran.ui.ProfilDetaljiActivity">
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/email"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textSize="30sp"/>
+
+    <EditText
+        android:id="@+id/ime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ime"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/prezime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Prezime"/>
+
+    <EditText
+        android:id="@+id/broj_telefona"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Broj Telefona"/>
+
+    <EditText
+        android:id="@+id/nova_sifra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nova sifra"/>
+
+    <EditText
+        android:id="@+id/potvrdi_novu_sifru"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ponovi novu sifru"/>
+
+    <Button
+        android:id="@+id/profil_sacuvaj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="Sacuvaj"/>
+
+
+</LinearLayout>

@@ -5,11 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <application
         android:name=".AppObject"
         android:allowBackup="true"
@@ -45,18 +40,7 @@
         <activity
             android:name=".ui.AdminKorisniciActivity"
             android:label="Korisnici" />
-        <activity
-            android:name="com.dropbox.client2.android.AuthActivity"
-            android:launchMode="singleTask"
-            android:configChanges="orientation|keyboard">
-            <intent-filter>
-                <!-- Change this to be db- followed by your app key -->
-                <data android:scheme="db-wzg097s234bmf6e" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+
     </application>
 
 </manifest>

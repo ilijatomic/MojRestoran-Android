@@ -3,7 +3,7 @@
     package="com.ilija.mojrestoran">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".AppObject"
@@ -39,8 +39,12 @@
             android:label="Profil" />
         <activity
             android:name=".ui.AdminKorisniciActivity"
-            android:label="Korisnici" />
-
+            android:label="Korisnici"
+            android:parentActivityName=".ui.AdminHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.KonobarHomeActivity" />
+        </activity>
     </application>
 
 </manifest>

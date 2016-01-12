@@ -8,50 +8,70 @@
 
     <TextView
         android:id="@+id/email"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:textSize="30sp"/>
+        android:gravity="center"
+        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/ime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ime"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:hint="me" />
 
     <EditText
         android:id="@+id/prezime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Prezime"/>
+        android:hint="prezime" />
 
     <EditText
         android:id="@+id/broj_telefona"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Broj Telefona"/>
+        android:hint="broj telefona" />
 
     <EditText
         android:id="@+id/nova_sifra"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nova sifra"/>
+        android:hint="nova sifra" />
 
     <EditText
         android:id="@+id/potvrdi_novu_sifru"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ponovi novu sifru"/>
+        android:hint="ponovi novu sifru" />
 
-    <Button
-        android:id="@+id/profil_sacuvaj"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:text="Sacuvaj"/>
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+
+
+        <Button
+            android:id="@+id/profil_odustani"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:text="Odustani" />
+
+        <Button
+            android:id="@+id/profil_sacuvaj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:text="Sacuvaj" />
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -22,6 +22,7 @@ public class ProfilDetaljiActivity extends BaseActivity {
     private EditText etSifra;
     private EditText etPonovoSifra;
     private Button btnSacuvaj;
+    private Button btnOdustani;
 
     private ArrayList<EditText> lista = new ArrayList<>();
 
@@ -50,6 +51,15 @@ public class ProfilDetaljiActivity extends BaseActivity {
                 lista.add(etPrezime);
                 if (checkRequiredFields(lista))
                     updateKorisnik();
+            }
+        });
+
+        btnOdustani = (Button) findViewById(R.id.profil_odustani);
+        btnOdustani.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lista.clear();
+                finish();
             }
         });
     }

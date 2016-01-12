@@ -47,6 +47,7 @@ public class SplashActivity extends BaseActivity {
         if (userLogin == null )
             intent = new Intent(this, LoginActivity.class);
         else {
+
             for (Korisnik korisnik : AppObject.getAppInstance().getMojRestoran().getKorisnikArrayList()) {
                 if (korisnik.getEmail().equals(userLogin)) {
                     AppObject.getAppInstance().setUlogovanKorisnik(korisnik);

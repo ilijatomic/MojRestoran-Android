@@ -64,13 +64,13 @@ public class SplashActivity extends BaseActivity {
         finish();
     }
 
-    /*private void downloadDB() {
+    private void downloadDB() {
 
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    BufferedReader bufferedReader = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory() + File.separator + RESTORAN_JSON));
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory() + File.separator + Constants.RESTORAN_JSON));
                     Gson gson = new Gson();
                     MojRestoran mojRestoran = gson.fromJson(bufferedReader, MojRestoran.class);
                     if (mojRestoran != null)
@@ -88,9 +88,9 @@ public class SplashActivity extends BaseActivity {
             }
         }.execute();
 
-    }*/
+    }
 
-    private void downloadDB() {
+    /*private void downloadDB() {
 
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -124,5 +124,5 @@ public class SplashActivity extends BaseActivity {
             }
         }.execute();
 
-    }
+    }*/
 }

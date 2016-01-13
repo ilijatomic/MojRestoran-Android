@@ -3,6 +3,7 @@ package com.ilija.mojrestoran;
 import android.app.Application;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.ilija.mojrestoran.model.Korisnik;
@@ -24,6 +25,8 @@ import java.net.URL;
  * Created by ilija.tomic on 1/4/2016.
  */
 public class AppObject extends Application {
+
+    private static final String TAG = AppObject.class.getSimpleName();
 
     private static AppObject appObject;
 
@@ -67,7 +70,7 @@ public class AppObject extends Application {
         }
     }
 
-    /*public void updateRestoranBase() {
+    public void updateRestoranBase() {
 
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -87,9 +90,9 @@ public class AppObject extends Application {
             }
         }.execute();
 
-    }*/
+    }
 
-    public void updateRestoranBase() {
+    /*public void updateRestoranBase() {
 
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -111,16 +114,18 @@ public class AppObject extends Application {
                         httpURLConnection.setDoOutput(true);
                         httpURLConnection.setChunkedStreamingMode(0);
                         httpURLConnection.setRequestMethod("POST");
-                        httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
                         httpURLConnection.setRequestProperty("Cache-Control", "no-cache");
-                        httpURLConnection.setRequestProperty(
-                                "Content-Type", "multipart/form-data;boundary=" + "*****");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
                         String json = gson.toJson(mojRestoran);
+                        String payload = "{\"jsonrpc\":\"2.0\",\"method\":\"changeDetail\",\"params\":[{\"id\":11376}],\"id\":2}";
                         DataOutputStream outputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                        outputStream.writeBytes(payload);
                         outputStream.writeBytes(json);
                         outputStream.flush();
                         outputStream.close();
+                        Log.i(TAG, httpURLConnection.getResponseMessage() + httpURLConnection.getResponseCode());
                         httpURLConnection.disconnect();
                     }
 
@@ -131,6 +136,6 @@ public class AppObject extends Application {
             }
         }.execute();
 
-    }
+    }*/
 
 }

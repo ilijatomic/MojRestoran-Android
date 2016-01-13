@@ -3,6 +3,7 @@ package com.ilija.mojrestoran.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class BaseActivity extends AppCompatActivity {
         this.showHomeButton = showHomeButton;
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeButton);
     }
 
     @Override
@@ -70,6 +72,11 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.profile_details:
                 intent = new Intent(AppObject.getAppInstance().getApplicationContext(), ProfilDetaljiActivity.class);
                 startActivity(intent);
+                return true;
+
+            case R.id.home:
+//                NavUtils.navigateUpFromSameTask(this);
+                finish();
                 return true;
 
             default:

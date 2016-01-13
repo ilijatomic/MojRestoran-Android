@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MojRestoran</string>
+    <string name="tip_izaberi">tip</string>
+
+    <string-array name="tip_vrednosti">
+        <item>tip</item>
+        <item>admin</item>
+        <item>konobar</item>
+    </string-array>
+    <string name="title_activity_main_test">MainTestActivity</string>
 
 </resources>

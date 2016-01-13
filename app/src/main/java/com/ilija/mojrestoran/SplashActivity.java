@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.ilija.mojrestoran.model.Korisnik;
@@ -27,9 +28,7 @@ import java.net.URL;
 
 public class SplashActivity extends BaseActivity {
 
-//    private static final String DB_URL = "https://www.dropbox.com/s/kilxntjowk6hr7f/restoran.json?raw=1";
-//    private static final String DB_URL = "http://172.17.130.208:8081/index.html";
-    public static final String RESTORAN_JSON = "restoran.json";
+    private static final String TAG = SplashActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class SplashActivity extends BaseActivity {
         finish();
     }
 
-    private void downloadDB() {
+    /*private void downloadDB() {
 
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -75,6 +74,42 @@ public class SplashActivity extends BaseActivity {
                     MojRestoran mojRestoran = gson.fromJson(bufferedReader, MojRestoran.class);
                     if (mojRestoran != null)
                         AppObject.getAppInstance().setMojRestoran(mojRestoran);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                checkLogin();
+            }
+        }.execute();
+
+    }*/
+
+    private void downloadDB() {
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    URL url = new URL(Constants.URL_DOWNLOAD);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("GET");
+                    httpURLConnection.connect();
+                    if (httpURLConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                        Log.e(TAG, "File does not exist on this address!");
+                    }
+
+                    InputStream inputStream = httpURLConnection.getInputStream();
+                    Gson gson = new Gson();
+                    MojRestoran mojRestoran = gson.fromJson(new InputStreamReader(inputStream), MojRestoran.class);
+                    if (mojRestoran != null)
+                        AppObject.getAppInstance().setMojRestoran(mojRestoran);
+
+                    httpURLConnection.disconnect();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

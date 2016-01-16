@@ -47,6 +47,10 @@ public class AdminHomeActivity extends BaseActivity implements View.OnClickListe
                 intent = new Intent(this, AdminStoloviActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.btn_meni_restorana:
+                intent = new Intent(this, AdminMeniActivity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }

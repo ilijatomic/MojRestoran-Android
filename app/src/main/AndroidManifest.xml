@@ -47,7 +47,15 @@
         </activity>
         <activity
             android:name=".ui.activity.AdminStoloviActivity"
-            android:label="Stolovi">
+            android:label="Stolovi"
+            android:parentActivityName=".ui.activity.AdminMeniActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.AdminHomeActivity" />
+        </activity>
+        <activity android:name=".ui.activity.AdminMeniActivity"
+            android:label="Meni restorana"
+            android:parentActivityName=".ui.activity.AdminMeniActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.AdminHomeActivity" />

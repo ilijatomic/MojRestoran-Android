@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ilija.mojrestoran.ui.ProfilDetaljiActivity">
+    tools:context=".ui.activity.ProfilDetaljiActivity">
 
     <TextView
         android:id="@+id/email"
@@ -51,8 +51,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
-
-
 
         <Button
             android:id="@+id/profil_odustani"

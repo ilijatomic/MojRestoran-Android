@@ -1,24 +1,17 @@
-package com.ilija.mojrestoran.ui;
+package com.ilija.mojrestoran.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
-import com.ilija.mojrestoran.SplashActivity;
+import com.ilija.mojrestoran.ui.SplashActivity;
 import com.ilija.mojrestoran.util.Constants;
-
-import java.util.ArrayList;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -84,15 +77,5 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected boolean checkRequiredFields(ArrayList<EditText> listaPolja) {
-        boolean success = true;
-        for (EditText editText : listaPolja) {
-            if (editText.getText().toString().isEmpty()) {
-                editText.setError("Obavezno polje!");
-                success = false;
-            }
-        }
 
-        return success;
-    }
 }

@@ -1,4 +1,4 @@
-package com.ilija.mojrestoran.ui;
+package com.ilija.mojrestoran.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

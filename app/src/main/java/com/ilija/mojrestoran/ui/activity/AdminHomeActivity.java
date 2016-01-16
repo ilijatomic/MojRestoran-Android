@@ -1,8 +1,7 @@
-package com.ilija.mojrestoran.ui;
+package com.ilija.mojrestoran.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
@@ -37,9 +36,15 @@ public class AdminHomeActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
+        Intent intent;
+
         switch (v.getId()) {
             case R.id.btn_korisnici:
-                Intent intent = new Intent(this, AdminKorisniciActivity.class);
+                intent = new Intent(this, AdminKorisniciActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_Stolovi:
+                intent = new Intent(this, AdminStoloviActivity.class);
                 startActivity(intent);
                 break;
             default:

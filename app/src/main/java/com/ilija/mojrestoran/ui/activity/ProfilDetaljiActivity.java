@@ -1,6 +1,5 @@
-package com.ilija.mojrestoran.ui;
+package com.ilija.mojrestoran.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.util.ToastMessage;
+import com.ilija.mojrestoran.util.Utilities;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,7 @@ public class ProfilDetaljiActivity extends BaseActivity {
                 lista.clear();
                 lista.add(etIme);
                 lista.add(etPrezime);
-                if (checkRequiredFields(lista))
+                if (Utilities.checkRequiredFields(lista))
                     updateKorisnik();
             }
         });

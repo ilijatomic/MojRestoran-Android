@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:clearTaskOnLaunch="true"
             android:configChanges="keyboardHidden|orientation"
             android:finishOnTaskLaunch="true"
@@ -26,24 +26,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.activity.LoginActivity" />
         <activity
-            android:name=".ui.AdminHomeActivity"
+            android:name=".ui.activity.AdminHomeActivity"
             android:label="MojRestoran" />
         <activity
-            android:name=".ui.KonobarHomeActivity"
+            android:name=".ui.activity.KonobarHomeActivity"
             android:label="MojRestoran" />
-        <activity android:name=".ui.BaseActivity" />
+        <activity android:name=".ui.activity.BaseActivity" />
         <activity
-            android:name=".ui.ProfilDetaljiActivity"
+            android:name=".ui.activity.ProfilDetaljiActivity"
             android:label="Profil" />
         <activity
-            android:name=".ui.AdminKorisniciActivity"
+            android:name=".ui.activity.AdminKorisniciActivity"
             android:label="Korisnici"
-            android:parentActivityName=".ui.AdminHomeActivity">
+            android:parentActivityName=".ui.activity.AdminHomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.KonobarHomeActivity" />
+                android:value=".ui.activity.AdminHomeActivity" />
+        </activity>
+        <activity
+            android:name=".ui.activity.AdminStoloviActivity"
+            android:label="Stolovi">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.AdminHomeActivity" />
         </activity>
     </application>
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.MojRestoran;
+import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.util.Constants;
 
 import java.io.BufferedOutputStream;
@@ -90,6 +91,38 @@ public class AppObject extends Application {
             }
         }.execute();
 
+    }
+
+    public Korisnik getKorisnikById(String idKorisnik) {
+        for (Korisnik korisnik : mojRestoran.getKorisnikArrayList())
+            if (korisnik.getId().equals(idKorisnik))
+                return korisnik;
+        return null;
+    }
+
+    public Sto getStoById(String idSto) {
+            for (Sto sto : mojRestoran.getStoArrayList())
+                if (sto.getId().equals(idSto))
+                    return sto;
+        return null;
+    }
+
+    public boolean checkIfUserExists(String email) {
+        for (Korisnik korisnik : mojRestoran.getKorisnikArrayList())
+            if (korisnik.getEmail().equals(email))
+                return true;
+        return false;
+    }
+
+    public boolean checkIfStoExists(String broj) {
+            for (Sto sto : mojRestoran.getStoArrayList())
+                if (sto.getBroj() == Integer.parseInt(broj))
+                    return true;
+        return false;
+    }
+
+    public boolean checkIfLoggedUser(String id) {
+        return ulogovanKorisnik.getId().equals(id);
     }
 
     /*public void updateRestoranBase() {

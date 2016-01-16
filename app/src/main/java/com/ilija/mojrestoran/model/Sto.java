@@ -17,7 +17,15 @@ public class Sto {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public int getBroj() {
         return broj;
+    }
+
+    public void setBroj(int broj) {
+        this.broj = broj;
     }
 }

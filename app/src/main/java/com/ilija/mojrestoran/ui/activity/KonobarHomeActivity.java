@@ -1,7 +1,5 @@
-package com.ilija.mojrestoran.ui;
+package com.ilija.mojrestoran.ui.activity;
 
-import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.ilija.mojrestoran.R;

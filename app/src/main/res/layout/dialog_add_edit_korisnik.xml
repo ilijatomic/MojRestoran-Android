@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/add_ime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ime" />
+
+    <EditText
+        android:id="@+id/add_prezime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="prezime" />
+
+    <EditText
+        android:id="@+id/add_broj_telefona"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="broj telefona" />
+
+    <EditText
+        android:id="@+id/add_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/add_sifra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="sifra" />
+
+    <Spinner
+        android:id="@+id/add_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/tip_vrednosti" />
+
+
+</LinearLayout>

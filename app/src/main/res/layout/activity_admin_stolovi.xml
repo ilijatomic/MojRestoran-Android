@@ -6,50 +6,23 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".ui.activity.AdminKorisniciActivity">
+    tools:context=".ui.activity.AdminStoloviActivity">
 
     <include layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/et_search_ime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="ime" />
-
-        <EditText
-            android:id="@+id/et_search_prezime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="prezime" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/et_search_email"
+            android:id="@+id/et_search_broj"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:hint="email"
-            android:inputType="textEmailAddress" />
-
-        <Spinner
-            android:id="@+id/et_search_tip"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:entries="@array/tip_vrednosti" />
+            android:hint="broj"
+            android:inputType="number" />
 
         <include
             layout="@layout/button_search"
@@ -70,7 +43,7 @@
         android:layout_height="wrap_content">
 
         <ListView
-            android:id="@+id/lv_korisnici"
+            android:id="@+id/lv_stolovi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

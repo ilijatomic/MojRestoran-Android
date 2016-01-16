@@ -1,4 +1,4 @@
-package com.ilija.mojrestoran;
+package com.ilija.mojrestoran.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,25 +6,21 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.gson.Gson;
+import com.ilija.mojrestoran.AppObject;
+import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.MojRestoran;
-import com.ilija.mojrestoran.ui.AdminHomeActivity;
-import com.ilija.mojrestoran.ui.BaseActivity;
-import com.ilija.mojrestoran.ui.KonobarHomeActivity;
-import com.ilija.mojrestoran.ui.LoginActivity;
+import com.ilija.mojrestoran.ui.activity.AdminHomeActivity;
+import com.ilija.mojrestoran.ui.activity.BaseActivity;
+import com.ilija.mojrestoran.ui.activity.KonobarHomeActivity;
+import com.ilija.mojrestoran.ui.activity.LoginActivity;
 import com.ilija.mojrestoran.util.Constants;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class SplashActivity extends BaseActivity {
 

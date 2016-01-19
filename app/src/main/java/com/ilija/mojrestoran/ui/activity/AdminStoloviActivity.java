@@ -103,6 +103,9 @@ public class AdminStoloviActivity extends BaseActivity implements DataChangeDial
     }
 
     @Override
+    public void onMenuListClick(String type, String id) {}
+
+    @Override
     public void onClick(View v) {
         DialogFragment addSto = new AddEditDialog(null, this, DialogDataType.STO);
         addSto.show(getFragmentManager(), "AddSto");

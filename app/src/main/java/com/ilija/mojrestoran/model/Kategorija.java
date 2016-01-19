@@ -21,11 +21,25 @@ public class Kategorija {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getNaziv() {
         return naziv;
     }
 
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
+
     public ArrayList<Podkategorija> getPodkategorijaArrayList() {
+        if (podkategorijaArrayList == null)
+            podkategorijaArrayList = new ArrayList<>();
         return podkategorijaArrayList;
+    }
+
+    public void setPodkategorijaArrayList(ArrayList<Podkategorija> podkategorijaArrayList) {
+        this.podkategorijaArrayList = podkategorijaArrayList;
     }
 }

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.ilija.mojrestoran.AppObject;
+import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.util.ToastMessage;
@@ -47,6 +48,9 @@ public class DeleteDialog extends DialogFragment{
                             case STO:
                                 deleteSto();
                                 break;
+                            case KATEGORIJA:
+                                deleteKategorija();
+                                break;
                         }
 
                     }
@@ -71,6 +75,10 @@ public class DeleteDialog extends DialogFragment{
                 title = "Obrisi sto";
                 message = "Da li ste sigurni da zelite da obriste sto?";
                 break;
+            case KATEGORIJA:
+                title = "Obrisi kategoriju";
+                message = "Da li ste sigurni da zelite da obriste kategoriju?";
+                break;
         }
     }
 
@@ -93,6 +101,17 @@ public class DeleteDialog extends DialogFragment{
         for (Sto sto : AppObject.getAppInstance().getMojRestoran().getStoArrayList()) {
             if (sto.getId().equals(id)) {
                 AppObject.getAppInstance().getMojRestoran().getStoArrayList().remove(sto);
+                AppObject.getAppInstance().updateRestoranBase();
+                dataChangeDialogListener.onDataChanged();
+            }
+        }
+    }
+
+    private void deleteKategorija() {
+
+        for (Kategorija kategorija : AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList()) {
+            if (kategorija.getId().equals(id)) {
+                AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList().remove(kategorija);
                 AppObject.getAppInstance().updateRestoranBase();
                 dataChangeDialogListener.onDataChanged();
             }

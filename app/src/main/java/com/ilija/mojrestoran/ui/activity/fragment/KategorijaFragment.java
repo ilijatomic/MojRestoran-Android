@@ -1,48 +1,41 @@
 package com.ilija.mojrestoran.ui.activity.fragment;
 
-import android.app.FragmentManager;
+import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
 
+import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
+import com.ilija.mojrestoran.model.Kategorija;
+import com.ilija.mojrestoran.model.Sto;
+import com.ilija.mojrestoran.ui.adapter.KategorijeListAdapter;
+import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
+import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
+import com.ilija.mojrestoran.ui.dialog.DialogDataType;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link KategorijaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class KategorijaFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class KategorijaFragment extends Fragment implements View.OnClickListener, DataChangeDialogListener {
 
-    private Button button;
+    private EditText etNaziv;
+    private ImageButton btnSearch;
+    private FloatingActionButton fabAdd;
+
+    private ListView kategorije;
+    private KategorijeListAdapter kategorijeListAdapter;
+    private ArrayList<Kategorija> listKategorija;
 
     public KategorijaFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment KategorijaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static KategorijaFragment newInstance() {
         return new KategorijaFragment();
     }
@@ -56,29 +49,93 @@ public class KategorijaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_kategorija, container, false);
-        button = (Button) view.findViewById(R.id.btn_test);
-        button.setOnClickListener(new View.OnClickListener() {
+
+        etNaziv = (EditText) view.findViewById(R.id.et_search_kategorija);
+        btnSearch = (ImageButton) view.findViewById(R.id.btn_search);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ViewPager viewPager = (ViewPager) getActivity().findViewById(R.id.view_pager);
-                PodkategorijaFragment page2 = (PodkategorijaFragment) getFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + 1);
-                page2.setString("vrh brate");
-                TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.sliding_tabs);
-//                viewPager.setTag("id 111");
-//                viewPager.setCurrentItem(1);
-//                tabLayout.setupWithViewPager(viewPager);
-//                tabLayout.setScrollPosition(1, 0f, true);
-                TabLayout.Tab tab = tabLayout.getTabAt(1);
-                tab.select();
+                search();
+            }
+        });
+        btnSearch.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                clearSearch();
+                return true;
             }
         });
 
+        fabAdd = (FloatingActionButton) view.findViewById(R.id.add);
+        fabAdd.setOnClickListener(this);
+
+        if (AppObject.getAppInstance().getMojRestoran().getKorisnikArrayList() != null)
+            listKategorija = new ArrayList<>(AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList());
+        else
+            listKategorija = new ArrayList<>();
+
+        kategorijeListAdapter = new KategorijeListAdapter(getActivity(), R.layout.list_item_admin_kategorija, listKategorija, this);
+        kategorije = (ListView) view.findViewById(R.id.lv_kategorija);
+        kategorije.setAdapter(kategorijeListAdapter);
+
         return view;
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    private void clearSearch() {
+        etNaziv.setText("");
+        onDataChanged();
+    }
+
+    private void search() {
+
+        String nazivSearch = etNaziv.getText().toString();
+
+        listKategorija.clear();
+        for (Kategorija kategorija : AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList()) {
+
+            if (!nazivSearch.isEmpty()) {
+                if (!nazivSearch.isEmpty() && kategorija.getNaziv().startsWith(nazivSearch)) {
+                    listKategorija.add(kategorija);
+                    break;
+                }
+            } else {
+                listKategorija.add(kategorija);
+            }
+        }
+        kategorijeListAdapter.notifyDataSetChanged();
+
+    }
+
+
+    @Override
+    public void onDataChanged() {
+        listKategorija.clear();
+
+        for (Kategorija kategorija : AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList())
+            listKategorija.add(kategorija);
+        kategorijeListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onMenuListClick(String type, String id) {
+        PodkategorijaFragment podkategorijaFragment = (PodkategorijaFragment) getFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + 1);
+        podkategorijaFragment.setString(id);
+
+        TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.sliding_tabs);
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        tab.select();
+    }
+
+    @Override
+    public void onClick(View v) {
+        DialogFragment addKategorija = new AddEditDialog(null, this, DialogDataType.KATEGORIJA);
+        addKategorija.show(getActivity().getFragmentManager(), "AddKategorija");
     }
 
 }

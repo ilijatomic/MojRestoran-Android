@@ -19,10 +19,8 @@ import java.util.UUID;
 public class StoDialogView implements DialogView {
 
     private String idSto;
-    private String tip;
 
     private EditText etBroj;
-
     private Sto sto;
     private Context context;
 

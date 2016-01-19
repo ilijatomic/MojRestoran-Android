@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.MojRestoran;
 import com.ilija.mojrestoran.model.Sto;
@@ -101,9 +102,16 @@ public class AppObject extends Application {
     }
 
     public Sto getStoById(String idSto) {
-            for (Sto sto : mojRestoran.getStoArrayList())
-                if (sto.getId().equals(idSto))
-                    return sto;
+        for (Sto sto : mojRestoran.getStoArrayList())
+            if (sto.getId().equals(idSto))
+                return sto;
+        return null;
+    }
+
+    public Kategorija getKategorijaById(String idKategorija) {
+        for (Kategorija kategorija : mojRestoran.getKategorijaArrayList())
+            if (kategorija.getId().equals(idKategorija))
+                return kategorija;
         return null;
     }
 
@@ -115,9 +123,16 @@ public class AppObject extends Application {
     }
 
     public boolean checkIfStoExists(String broj) {
-            for (Sto sto : mojRestoran.getStoArrayList())
-                if (sto.getBroj() == Integer.parseInt(broj))
-                    return true;
+        for (Sto sto : mojRestoran.getStoArrayList())
+            if (sto.getBroj() == Integer.parseInt(broj))
+                return true;
+        return false;
+    }
+
+    public boolean checkIfKategorijaExists(String naziv) {
+        for (Kategorija kategorija : mojRestoran.getKategorijaArrayList())
+            if (kategorija.getNaziv().equals(naziv))
+                return true;
         return false;
     }
 

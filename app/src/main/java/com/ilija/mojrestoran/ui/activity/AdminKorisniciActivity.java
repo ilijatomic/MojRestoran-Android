@@ -141,6 +141,9 @@ public class AdminKorisniciActivity extends BaseActivity implements DataChangeDi
     }
 
     @Override
+    public void onMenuListClick(String type, String id) {}
+
+    @Override
     public void onClick(View v) {
         DialogFragment addKorinik = new AddEditDialog(null, this, DialogDataType.KORISNIK);
         addKorinik.show(getFragmentManager(), "AddKorisnik");

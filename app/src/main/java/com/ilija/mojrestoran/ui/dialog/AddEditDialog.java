@@ -13,6 +13,7 @@ import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.ui.viewholder.DialogView;
+import com.ilija.mojrestoran.ui.viewholder.KategorijaDialogView;
 import com.ilija.mojrestoran.ui.viewholder.KorisnikDialogView;
 import com.ilija.mojrestoran.ui.viewholder.StoDialogView;
 
@@ -26,6 +27,8 @@ public class AddEditDialog extends DialogFragment {
     private DataChangeDialogListener dataChangeDialogListener;
     private DialogDataType dialogDataType;
     private DialogView dialogView;
+
+    public AddEditDialog() {}
 
     public AddEditDialog(String id, DataChangeDialogListener dataChangeDialogListener, DialogDataType dialogDataType) {
         this.id = id;
@@ -81,6 +84,10 @@ public class AddEditDialog extends DialogFragment {
                 dialogView = new StoDialogView(getActivity(), id, view);
                 dialogView.setData();
                 break;
+            case KATEGORIJA:
+                dialogView = new KategorijaDialogView(getActivity(), id, view);
+                dialogView.setData();
+                break;
         }
 
     }
@@ -93,6 +100,8 @@ public class AddEditDialog extends DialogFragment {
                 return inflater.inflate(R.layout.dialog_add_edit_korisnik, null);
             case STO:
                 return inflater.inflate(R.layout.dialog_add_edit_sto, null);
+            case KATEGORIJA:
+                return inflater.inflate(R.layout.dialog_add_edit_kategorija, null);
             default:
                 return null;
         }

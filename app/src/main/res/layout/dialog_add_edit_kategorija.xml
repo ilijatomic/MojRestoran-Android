@@ -6,10 +6,9 @@
     android:layout_margin="10dp">
 
     <EditText
-        android:id="@+id/add_broj"
+        android:id="@+id/add_naziv_kategorija"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="broj"
-        android:inputType="numberSigned" />
+        android:hint="naziv" />
 
 </LinearLayout>

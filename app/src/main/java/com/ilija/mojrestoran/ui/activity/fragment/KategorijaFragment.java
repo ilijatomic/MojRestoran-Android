@@ -3,7 +3,6 @@ package com.ilija.mojrestoran.ui.activity.fragment;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.ListView;
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.Kategorija;
-import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.ui.adapter.KategorijeListAdapter;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
 import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
@@ -74,7 +72,7 @@ public class KategorijaFragment extends Fragment implements View.OnClickListener
         else
             listKategorija = new ArrayList<>();
 
-        kategorijeListAdapter = new KategorijeListAdapter(getActivity(), R.layout.list_item_admin_kategorija, listKategorija, this);
+        kategorijeListAdapter = new KategorijeListAdapter(this, R.layout.list_item_admin_kategorija, listKategorija, this);
         kategorije = (ListView) view.findViewById(R.id.lv_kategorija);
         kategorije.setAdapter(kategorijeListAdapter);
 
@@ -120,16 +118,6 @@ public class KategorijaFragment extends Fragment implements View.OnClickListener
         for (Kategorija kategorija : AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList())
             listKategorija.add(kategorija);
         kategorijeListAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onMenuListClick(String type, String id) {
-        PodkategorijaFragment podkategorijaFragment = (PodkategorijaFragment) getFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + 1);
-        podkategorijaFragment.setString(id);
-
-        TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.sliding_tabs);
-        TabLayout.Tab tab = tabLayout.getTabAt(1);
-        tab.select();
     }
 
     @Override

@@ -1,8 +1,10 @@
 package com.ilija.mojrestoran.ui.adapter;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,15 +31,17 @@ import java.util.List;
 public class KategorijeListAdapter extends ArrayAdapter<Kategorija> {
 
     private Context context;
+    private Fragment fragment;
     private DataChangeDialogListener dataChangeDialogListener;
     private ArrayList<Kategorija> kategorijas;
 
-    public KategorijeListAdapter(Context context, int resource, ArrayList<Kategorija> objects, DataChangeDialogListener dataChangeDialogListener) {
-        super(context, resource, objects);
+    public KategorijeListAdapter(Fragment fragment, int resource, ArrayList<Kategorija> objects, DataChangeDialogListener dataChangeDialogListener) {
+        super(fragment.getContext(), resource, objects);
 
-        this.context = context;
+        this.context = fragment.getContext();
         this.kategorijas = objects;
         this.dataChangeDialogListener = dataChangeDialogListener;
+        this.fragment = fragment;
 
     }
 
@@ -88,7 +92,13 @@ public class KategorijeListAdapter extends ArrayAdapter<Kategorija> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataChangeDialogListener.onMenuListClick("KAT", getItem(position).getId());
+                PodkategorijaFragment podkategorijaFragment = (PodkategorijaFragment) fragment.getFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + 1);
+                podkategorijaFragment.setString(getItem(position).getId());
+
+                TabLayout tabLayout = (TabLayout)((Activity) context).findViewById(R.id.sliding_tabs);
+                TabLayout.Tab tab = tabLayout.getTabAt(1);
+                tab.select();
+//                dataChangeDialogListener.onMenuListClick("KAT", getItem(position).getId());
             }
         });
 

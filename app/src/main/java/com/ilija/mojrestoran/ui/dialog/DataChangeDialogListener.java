@@ -5,5 +5,4 @@ package com.ilija.mojrestoran.ui.dialog;
  */
 public interface DataChangeDialogListener {
     void onDataChanged();
-    void onMenuListClick(String type, String id);
 }

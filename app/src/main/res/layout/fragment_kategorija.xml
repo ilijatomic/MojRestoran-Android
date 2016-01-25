@@ -22,7 +22,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:hint="ime kategorije" />
+                android:hint="naziv" />
 
             <include
                 layout="@layout/button_search"

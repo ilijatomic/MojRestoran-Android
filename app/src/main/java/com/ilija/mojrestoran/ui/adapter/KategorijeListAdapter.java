@@ -93,12 +93,11 @@ public class KategorijeListAdapter extends ArrayAdapter<Kategorija> {
             @Override
             public void onClick(View v) {
                 PodkategorijaFragment podkategorijaFragment = (PodkategorijaFragment) fragment.getFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + 1);
-                podkategorijaFragment.setString(getItem(position).getId());
+                podkategorijaFragment.setKategorija(getItem(position));
 
                 TabLayout tabLayout = (TabLayout)((Activity) context).findViewById(R.id.sliding_tabs);
                 TabLayout.Tab tab = tabLayout.getTabAt(1);
                 tab.select();
-//                dataChangeDialogListener.onMenuListClick("KAT", getItem(position).getId());
             }
         });
 

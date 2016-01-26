@@ -15,6 +15,7 @@ import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.ui.viewholder.DialogView;
 import com.ilija.mojrestoran.ui.viewholder.KategorijaDialogView;
 import com.ilija.mojrestoran.ui.viewholder.KorisnikDialogView;
+import com.ilija.mojrestoran.ui.viewholder.PodkategorijaDialogView;
 import com.ilija.mojrestoran.ui.viewholder.StoDialogView;
 
 /**
@@ -88,6 +89,10 @@ public class AddEditDialog extends DialogFragment {
                 dialogView = new KategorijaDialogView(getActivity(), id, view);
                 dialogView.setData();
                 break;
+            case PODKATEGORIJA:
+                dialogView = new PodkategorijaDialogView(getActivity(), id, view);
+                dialogView.setData();
+                break;
         }
 
     }
@@ -102,6 +107,8 @@ public class AddEditDialog extends DialogFragment {
                 return inflater.inflate(R.layout.dialog_add_edit_sto, null);
             case KATEGORIJA:
                 return inflater.inflate(R.layout.dialog_add_edit_kategorija, null);
+            case PODKATEGORIJA:
+                return inflater.inflate(R.layout.dialog_add_edit_podkategorija, null);
             default:
                 return null;
         }

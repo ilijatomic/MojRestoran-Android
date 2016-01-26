@@ -10,28 +10,39 @@ public class Podkategorija {
     private String id;
     private String naziv;
     private Kategorija kategorija;
-    private ArrayList<Stavka> stavkaArrayList = new ArrayList<>();
 
-    public Podkategorija(String id, String naziv, Kategorija kategorija, ArrayList<Stavka> stavkaArrayList) {
+    public Podkategorija(String id, String naziv, Kategorija kategorija) {
         this.id = id;
         this.naziv = naziv;
         this.kategorija = kategorija;
-        this.stavkaArrayList = stavkaArrayList;
     }
 
     public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getNaziv() {
         return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
     public Kategorija getKategorija() {
         return kategorija;
     }
 
-    public ArrayList<Stavka> getStavkaArrayList() {
-        return stavkaArrayList;
+    public void setKategorija(Kategorija kategorija) {
+        this.kategorija = kategorija;
+    }
+
+    @Override
+    public String toString() {
+        return naziv;
     }
 }

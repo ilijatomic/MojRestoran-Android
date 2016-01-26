@@ -15,9 +15,10 @@ import android.widget.TextView;
 
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
-import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Podkategorija;
+import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.ui.activity.fragment.PodkategorijaFragment;
+import com.ilija.mojrestoran.ui.activity.fragment.StavkaFragment;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
 import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
 import com.ilija.mojrestoran.ui.dialog.DeleteDialog;
@@ -27,28 +28,27 @@ import com.ilija.mojrestoran.util.ToastMessage;
 import java.util.ArrayList;
 
 /**
- * Created by ilija.tomic on 1/19/2016.
+ * Created by ilija.tomic on 1/25/2016.
  */
-public class KategorijeListAdapter extends ArrayAdapter<Kategorija> {
+public class PodkategorijaListAdapter extends ArrayAdapter<Podkategorija> {
 
     private Context context;
     private Fragment fragment;
     private DataChangeDialogListener dataChangeDialogListener;
-    private ArrayList<Kategorija> kategorijas;
+    private ArrayList<Podkategorija> podkategorijas;
 
-    public KategorijeListAdapter(Fragment fragment, int resource, ArrayList<Kategorija> objects, DataChangeDialogListener dataChangeDialogListener) {
+    public PodkategorijaListAdapter(Fragment fragment, int resource, ArrayList<Podkategorija> objects, DataChangeDialogListener dataChangeDialogListener) {
         super(fragment.getContext(), resource, objects);
 
         this.context = fragment.getContext();
-        this.kategorijas = objects;
+        this.podkategorijas = objects;
         this.dataChangeDialogListener = dataChangeDialogListener;
         this.fragment = fragment;
-
     }
 
     @Override
-    public Kategorija getItem(int position) {
-        return kategorijas.get(position);
+    public Podkategorija getItem(int position) {
+        return podkategorijas.get(position);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class KategorijeListAdapter extends ArrayAdapter<Kategorija> {
 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.list_item_admin_kategorija, null);
+            view = layoutInflater.inflate(R.layout.list_item_admin_podkategorija, null);
         }
 
         view.setTag(position);
@@ -67,9 +67,9 @@ public class KategorijeListAdapter extends ArrayAdapter<Kategorija> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment editKategorija = new AddEditDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.KATEGORIJA);
+                DialogFragment editPodkategorija = new AddEditDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.PODKATEGORIJA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
-                editKategorija.show(fragmentActivity.getFragmentManager(), "EditKategorija");
+                editPodkategorija.show(fragmentActivity.getFragmentManager(), "EditPodkategorija");
             }
         });
         ImageButton delete = (ImageButton) view.findViewById(R.id.btn_delete);
@@ -77,29 +77,32 @@ public class KategorijeListAdapter extends ArrayAdapter<Kategorija> {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (Podkategorija podkategorija : AppObject.getAppInstance().getMojRestoran().getPodkategorijaArrayList()) {
-                    if (podkategorija.getKategorija().getId().equals(getItem(position).getId())) {
-                        ToastMessage.showToast(context, "Kategorija ne moze biti obrisana jer sadrzi podkategorije!");
+                for (Stavka stavka : AppObject.getAppInstance().getMojRestoran().getStavkaArrayList()) {
+                    if (stavka.getPodkategorija().getId().equals(getItem(position).getId())) {
+                        ToastMessage.showToast(context, "Podkategorija ne moze biti obrisana jer sadrzi stavke!");
                         return;
                     }
                 }
-                DialogFragment deleteKategorija = new DeleteDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.KATEGORIJA);
+
+                DialogFragment deleteKategorija = new DeleteDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.PODKATEGORIJA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
-                deleteKategorija.show(fragmentActivity.getFragmentManager(), "DeleteKategorija");
+                deleteKategorija.show(fragmentActivity.getFragmentManager(), "DeletePodkategorija");
             }
         });
 
-        TextView naziv = (TextView) view.findViewById(R.id.tv_naziv_kategorije);
+        TextView nazivKategorije = (TextView) view.findViewById(R.id.tv_naziv_kategorije);
+        nazivKategorije.setText(getItem(position).getKategorija().getNaziv());
+        TextView naziv = (TextView) view.findViewById(R.id.tv_naziv_podkategorije);
         naziv.setText(getItem(position).getNaziv());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PodkategorijaFragment podkategorijaFragment = (PodkategorijaFragment) fragment.getFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + 1);
-                podkategorijaFragment.setSelectedKategorija(getItem(position));
+                StavkaFragment stavkaFragment = (StavkaFragment) fragment.getFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + 2);
+                stavkaFragment.setPodkategorija(getItem(position));
 
-                TabLayout tabLayout = (TabLayout)((Activity) context).findViewById(R.id.sliding_tabs);
-                TabLayout.Tab tab = tabLayout.getTabAt(1);
+                TabLayout tabLayout = (TabLayout) ((Activity) context).findViewById(R.id.sliding_tabs);
+                TabLayout.Tab tab = tabLayout.getTabAt(2);
                 tab.select();
             }
         });

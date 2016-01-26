@@ -9,12 +9,10 @@ public class Kategorija {
 
     private String id;
     private String naziv;
-    private ArrayList<Podkategorija> podkategorijaArrayList = new ArrayList<>();
 
-    public Kategorija(String id, String naziv, ArrayList<Podkategorija> podkategorijaArrayList) {
+    public Kategorija(String id, String naziv) {
         this.id = id;
         this.naziv = naziv;
-        this.podkategorijaArrayList = podkategorijaArrayList;
     }
 
     public String getId() {
@@ -33,13 +31,8 @@ public class Kategorija {
         this.naziv = naziv;
     }
 
-    public ArrayList<Podkategorija> getPodkategorijaArrayList() {
-        if (podkategorijaArrayList == null)
-            podkategorijaArrayList = new ArrayList<>();
-        return podkategorijaArrayList;
-    }
-
-    public void setPodkategorijaArrayList(ArrayList<Podkategorija> podkategorijaArrayList) {
-        this.podkategorijaArrayList = podkategorijaArrayList;
+    @Override
+    public String toString() {
+        return naziv;
     }
 }

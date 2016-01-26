@@ -2,6 +2,10 @@ package com.ilija.mojrestoran.util;
 
 import android.widget.EditText;
 
+import com.ilija.mojrestoran.model.Kategorija;
+import com.ilija.mojrestoran.model.Podkategorija;
+import com.ilija.mojrestoran.model.Stavka;
+
 import java.util.ArrayList;
 
 /**
@@ -19,6 +23,16 @@ public class Utilities {
             }
         }
         return success;
+    }
 
+    public static void populateSpinnerStrings(ArrayList<String> strings, ArrayList<?> objects, String first) {
+
+        strings.clear();
+        strings.add(first);
+        if (objects.size() > 0) {
+            for (Object o : objects) {
+                strings.add(o.toString());
+            }
+        }
     }
 }

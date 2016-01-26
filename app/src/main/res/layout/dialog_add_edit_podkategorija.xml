@@ -5,10 +5,15 @@
     android:orientation="vertical"
     android:layout_margin="10dp">
 
+
     <EditText
-        android:id="@+id/add_naziv_kategorija"
+        android:id="@+id/add_naziv_podkategorija"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="naziv kategorije" />
+        android:hint="naziv podkategorije" />
 
+    <Spinner
+        android:id="@+id/add_kategorija"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

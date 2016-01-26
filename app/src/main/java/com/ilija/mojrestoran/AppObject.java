@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.MojRestoran;
+import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.util.Constants;
 
@@ -115,6 +116,13 @@ public class AppObject extends Application {
         return null;
     }
 
+    public Podkategorija getPodkategorijaById(String idPodkategorija) {
+        for (Podkategorija podkategorija : mojRestoran.getPodkategorijaArrayList())
+            if (podkategorija.getId().equals(idPodkategorija))
+                return podkategorija;
+        return null;
+    }
+
     public boolean checkIfUserExists(String email) {
         for (Korisnik korisnik : mojRestoran.getKorisnikArrayList())
             if (korisnik.getEmail().equals(email))
@@ -135,6 +143,14 @@ public class AppObject extends Application {
                 return true;
         return false;
     }
+
+    public boolean checkIfPodkategorijaExists(String naziv) {
+        for (Podkategorija podkategorija : mojRestoran.getPodkategorijaArrayList())
+            if (podkategorija.getNaziv().equals(naziv))
+                return true;
+        return false;
+    }
+
 
     public boolean checkIfLoggedUser(String id) {
         return ulogovanKorisnik.getId().equals(id);

@@ -11,6 +11,16 @@
         android:layout_centerVertical="true" />
 
     <TextView
+        android:id="@+id/kat_linija"
+        android:layout_toRightOf="@id/tv_naziv_kategorije"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="|"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:layout_toRightOf="@id/kat_linija"
         android:id="@+id/tv_naziv_podkategorije"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

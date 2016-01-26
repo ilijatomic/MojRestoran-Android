@@ -9,13 +9,14 @@ import android.os.Bundle;
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
+import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.util.ToastMessage;
 
 /**
  * Created by Ilija on 1/16/2016.
  */
-public class DeleteDialog extends DialogFragment{
+public class DeleteDialog extends DialogFragment {
 
     private String id;
     private String title;
@@ -51,6 +52,9 @@ public class DeleteDialog extends DialogFragment{
                             case KATEGORIJA:
                                 deleteKategorija();
                                 break;
+                            case PODKATEGORIJA:
+                                deletePodkategorija();
+                                break;
                         }
 
                     }
@@ -79,10 +83,15 @@ public class DeleteDialog extends DialogFragment{
                 title = "Obrisi kategoriju";
                 message = "Da li ste sigurni da zelite da obriste kategoriju?";
                 break;
+            case PODKATEGORIJA:
+                title = "Obrisi podkategoriju";
+                message = "Da li ste sigurni da zelite da obriste podkategoriju?";
+                break;
         }
     }
 
     private void deleteKorisnik() {
+
         if (AppObject.getAppInstance().checkIfLoggedUser(id)) {
             ToastMessage.showToast(getActivity(), "Taj korisnik ne moze biti obrisan!");
             return;
@@ -98,6 +107,7 @@ public class DeleteDialog extends DialogFragment{
     }
 
     private void deleteSto() {
+
         for (Sto sto : AppObject.getAppInstance().getMojRestoran().getStoArrayList()) {
             if (sto.getId().equals(id)) {
                 AppObject.getAppInstance().getMojRestoran().getStoArrayList().remove(sto);
@@ -116,5 +126,15 @@ public class DeleteDialog extends DialogFragment{
                 dataChangeDialogListener.onDataChanged();
             }
         }
+    }
+
+    private void deletePodkategorija() {
+
+        for (Podkategorija podkategorija : AppObject.getAppInstance().getMojRestoran().getPodkategorijaArrayList())
+            if (podkategorija.getId().equals(id)) {
+                AppObject.getAppInstance().getMojRestoran().getPodkategorijaArrayList().remove(podkategorija);
+                AppObject.getAppInstance().updateRestoranBase();
+                dataChangeDialogListener.onDataChanged();
+            }
     }
 }

@@ -67,7 +67,7 @@ public class KategorijaFragment extends Fragment implements View.OnClickListener
         fabAdd = (FloatingActionButton) view.findViewById(R.id.add);
         fabAdd.setOnClickListener(this);
 
-        if (AppObject.getAppInstance().getMojRestoran().getKorisnikArrayList() != null)
+        if (AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList() != null)
             listKategorija = new ArrayList<>(AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList());
         else
             listKategorija = new ArrayList<>();
@@ -113,11 +113,7 @@ public class KategorijaFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onDataChanged() {
-        listKategorija.clear();
-
-        for (Kategorija kategorija : AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList())
-            listKategorija.add(kategorija);
-        kategorijeListAdapter.notifyDataSetChanged();
+        search();
     }
 
     @Override

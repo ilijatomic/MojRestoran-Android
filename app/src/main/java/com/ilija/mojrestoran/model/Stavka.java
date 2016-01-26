@@ -32,4 +32,9 @@ public class Stavka {
     public Podkategorija getPodkategorija() {
         return podkategorija;
     }
+
+    @Override
+    public String toString() {
+        return naziv;
+    }
 }

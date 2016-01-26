@@ -53,13 +53,13 @@ public class KategorijaDialogView implements DialogView {
             return false;
 
         if (AppObject.getAppInstance().checkIfKategorijaExists(etNaziv.getText().toString())) {
-            ToastMessage.showToast(context, "Kategorija sa unetim brojem vec postoji!");
+            ToastMessage.showToast(context, "Kategorija sa unetim imenom vec postoji!");
             return false;
         }
 
         if (kategorija == null) {
             idKategorija = UUID.randomUUID().toString();
-            kategorija = new Kategorija(idKategorija, etNaziv.getText().toString(), new ArrayList<Podkategorija>());
+            kategorija = new Kategorija(idKategorija, etNaziv.getText().toString());
             AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList().add(kategorija);
             AppObject.getAppInstance().updateRestoranBase();
         } else {

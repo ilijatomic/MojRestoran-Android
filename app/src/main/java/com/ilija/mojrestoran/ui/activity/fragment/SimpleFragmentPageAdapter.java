@@ -25,7 +25,9 @@ public class SimpleFragmentPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return KategorijaFragment.newInstance();
             case 1:
-                return PodkategorijaFragment.newInstance("1", "2");
+                return PodkategorijaFragment.newInstance();
+            case 2:
+                return StavkaFragment.newInstance();
         }
         return KategorijaFragment.newInstance();
     }

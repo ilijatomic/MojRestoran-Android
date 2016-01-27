@@ -100,7 +100,6 @@ public class KategorijaFragment extends Fragment implements View.OnClickListener
             if (!nazivSearch.isEmpty()) {
                 if (!nazivSearch.isEmpty() && kategorija.getNaziv().startsWith(nazivSearch)) {
                     listKategorija.add(kategorija);
-                    break;
                 }
             } else {
                 listKategorija.add(kategorija);

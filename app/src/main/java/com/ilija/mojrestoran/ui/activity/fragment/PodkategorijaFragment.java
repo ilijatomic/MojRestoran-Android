@@ -143,15 +143,18 @@ public class PodkategorijaFragment extends Fragment implements DataChangeDialogL
         listPodkategorijas.clear();
 
         for (Podkategorija podkategorija : AppObject.getAppInstance().getMojRestoran().getPodkategorijaArrayList()) {
-            if (selectedKategorija != null) {
+            if (selectedKategorija != null && !nazivSearch.isEmpty()) {
+                if (podkategorija.getKategorija().getId().equals(selectedKategorija.getId())
+                        && podkategorija.getNaziv().startsWith(nazivSearch)) {
+                    listPodkategorijas.add(podkategorija);
+                }
+            } else if (selectedKategorija != null) {
                 if (podkategorija.getKategorija().getId().equals(selectedKategorija.getId())) {
                     listPodkategorijas.add(podkategorija);
-                    break;
                 }
             } else if (!nazivSearch.isEmpty()) {
                 if (!nazivSearch.isEmpty() && podkategorija.getNaziv().startsWith(nazivSearch)) {
                     listPodkategorijas.add(podkategorija);
-                    break;
                 }
             } else {
                 listPodkategorijas.add(podkategorija);
@@ -182,10 +185,10 @@ public class PodkategorijaFragment extends Fragment implements DataChangeDialogL
         addKategorija.show(getActivity().getFragmentManager(), "AddPodkategorija");
     }
 
-    public void setSelectedKategorija(Kategorija selectedKategorija) {
+    public void setSelectedKategorija(Kategorija kategorija) {
         Utilities.populateSpinnerStrings(strings, AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList(), "kategorija");
         arrayAdapter.notifyDataSetChanged();
-        spKategorija.setSelection(arrayAdapter.getPosition(selectedKategorija.getNaziv()));
+        spKategorija.setSelection(arrayAdapter.getPosition(kategorija.getNaziv()));
     }
 
 }

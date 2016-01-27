@@ -10,6 +10,7 @@ import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.Podkategorija;
+import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.util.ToastMessage;
 
@@ -55,6 +56,9 @@ public class DeleteDialog extends DialogFragment {
                             case PODKATEGORIJA:
                                 deletePodkategorija();
                                 break;
+                            case STAVKA:
+                                deleteStavka();
+                                break;
                         }
 
                     }
@@ -86,6 +90,9 @@ public class DeleteDialog extends DialogFragment {
             case PODKATEGORIJA:
                 title = "Obrisi podkategoriju";
                 message = "Da li ste sigurni da zelite da obriste podkategoriju?";
+            case STAVKA:
+                title = "Obrisi stavku";
+                message = "Da li ste sigurni da zelite da obriste stavku?";
                 break;
         }
     }
@@ -102,6 +109,7 @@ public class DeleteDialog extends DialogFragment {
                 AppObject.getAppInstance().getMojRestoran().getKorisnikArrayList().remove(korisnik);
                 AppObject.getAppInstance().updateRestoranBase();
                 dataChangeDialogListener.onDataChanged();
+                break;
             }
         }
     }
@@ -113,6 +121,7 @@ public class DeleteDialog extends DialogFragment {
                 AppObject.getAppInstance().getMojRestoran().getStoArrayList().remove(sto);
                 AppObject.getAppInstance().updateRestoranBase();
                 dataChangeDialogListener.onDataChanged();
+                break;
             }
         }
     }
@@ -124,6 +133,7 @@ public class DeleteDialog extends DialogFragment {
                 AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList().remove(kategorija);
                 AppObject.getAppInstance().updateRestoranBase();
                 dataChangeDialogListener.onDataChanged();
+                break;
             }
         }
     }
@@ -135,6 +145,18 @@ public class DeleteDialog extends DialogFragment {
                 AppObject.getAppInstance().getMojRestoran().getPodkategorijaArrayList().remove(podkategorija);
                 AppObject.getAppInstance().updateRestoranBase();
                 dataChangeDialogListener.onDataChanged();
+                break;
+            }
+    }
+
+    private void deleteStavka() {
+
+        for (Stavka stavka : AppObject.getAppInstance().getMojRestoran().getStavkaArrayList())
+            if (stavka.getId().equals(id)) {
+                AppObject.getAppInstance().getMojRestoran().getStavkaArrayList().remove(stavka);
+                AppObject.getAppInstance().updateRestoranBase();
+                dataChangeDialogListener.onDataChanged();
+                break;
             }
     }
 }

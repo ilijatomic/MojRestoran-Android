@@ -16,6 +16,7 @@ import com.ilija.mojrestoran.ui.viewholder.DialogView;
 import com.ilija.mojrestoran.ui.viewholder.KategorijaDialogView;
 import com.ilija.mojrestoran.ui.viewholder.KorisnikDialogView;
 import com.ilija.mojrestoran.ui.viewholder.PodkategorijaDialogView;
+import com.ilija.mojrestoran.ui.viewholder.StavkaDialogView;
 import com.ilija.mojrestoran.ui.viewholder.StoDialogView;
 
 /**
@@ -93,6 +94,10 @@ public class AddEditDialog extends DialogFragment {
                 dialogView = new PodkategorijaDialogView(getActivity(), id, view);
                 dialogView.setData();
                 break;
+            case STAVKA:
+                dialogView = new StavkaDialogView(getActivity(), id, view);
+                dialogView.setData();
+                break;
         }
 
     }
@@ -109,6 +114,8 @@ public class AddEditDialog extends DialogFragment {
                 return inflater.inflate(R.layout.dialog_add_edit_kategorija, null);
             case PODKATEGORIJA:
                 return inflater.inflate(R.layout.dialog_add_edit_podkategorija, null);
+            case STAVKA:
+                return inflater.inflate(R.layout.dialog_add_edit_stavka, null);
             default:
                 return null;
         }

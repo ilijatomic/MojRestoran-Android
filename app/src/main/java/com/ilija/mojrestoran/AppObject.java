@@ -10,6 +10,7 @@ import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.MojRestoran;
 import com.ilija.mojrestoran.model.Podkategorija;
+import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.util.Constants;
 
@@ -23,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by ilija.tomic on 1/4/2016.
@@ -123,6 +125,13 @@ public class AppObject extends Application {
         return null;
     }
 
+    public Stavka getStavkaById(String idStavka) {
+        for (Stavka stavka : mojRestoran.getStavkaArrayList())
+            if (stavka.getId().equals(idStavka))
+                return stavka;
+        return null;
+    }
+
     public boolean checkIfUserExists(String email) {
         for (Korisnik korisnik : mojRestoran.getKorisnikArrayList())
             if (korisnik.getEmail().equals(email))
@@ -151,6 +160,20 @@ public class AppObject extends Application {
         return false;
     }
 
+    public boolean checkIfStavkaExists(String naziv) {
+        for (Stavka stavka : mojRestoran.getStavkaArrayList())
+            if (stavka.getNaziv().equals(naziv))
+                return true;
+        return false;
+    }
+
+    public void populatePodkategorijeOfKategorija(Kategorija kategorija, ArrayList<String> podkategorijas) {
+        podkategorijas.clear();
+        podkategorijas.add("podkategorija");
+        for (Podkategorija podkategorija : AppObject.getAppInstance().getMojRestoran().getPodkategorijaArrayList())
+            if (podkategorija.getKategorija().getId().equals(kategorija.getId()))
+                podkategorijas.add(podkategorija.getNaziv());
+    }
 
     public boolean checkIfLoggedUser(String id) {
         return ulogovanKorisnik.getId().equals(id);

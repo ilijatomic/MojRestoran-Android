@@ -84,8 +84,13 @@ public class PodkategorijaDialogView implements DialogView {
         if (!Utilities.checkRequiredFields(lista))
             return false;
 
+        if (selectedKategorija == null) {
+            ToastMessage.showToast(context, "Selektujte kategoriju!");
+            return false;
+        }
+
         if (podkategorija!= null) {
-            if (AppObject.getAppInstance().checkIfPodkategorijaExists(etNaziv.getText().toString()) && selectedKategorija.getId().equals(podkategorija.getId())) {
+            if (AppObject.getAppInstance().checkIfPodkategorijaExists(etNaziv.getText().toString()) && selectedKategorija.getId().equals(podkategorija.getKategorija().getId())) {
                 ToastMessage.showToast(context, "Podkategorija sa unetim nazivom vec postoji!");
                 return false;
             }

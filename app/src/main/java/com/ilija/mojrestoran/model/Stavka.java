@@ -21,16 +21,32 @@ public class Stavka {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getNaziv() {
         return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
     public double getCena() {
         return cena;
     }
 
+    public void setCena(double cena) {
+        this.cena = cena;
+    }
+
     public Podkategorija getPodkategorija() {
         return podkategorija;
+    }
+
+    public void setPodkategorija(Podkategorija podkategorija) {
+        this.podkategorija = podkategorija;
     }
 
     @Override

@@ -143,19 +143,13 @@ public class PodkategorijaFragment extends Fragment implements DataChangeDialogL
         listPodkategorijas.clear();
 
         for (Podkategorija podkategorija : AppObject.getAppInstance().getMojRestoran().getPodkategorijaArrayList()) {
-            if (selectedKategorija != null && !nazivSearch.isEmpty()) {
-                if (podkategorija.getKategorija().getId().equals(selectedKategorija.getId())
-                        && podkategorija.getNaziv().startsWith(nazivSearch)) {
-                    listPodkategorijas.add(podkategorija);
-                }
-            } else if (selectedKategorija != null) {
-                if (podkategorija.getKategorija().getId().equals(selectedKategorija.getId())) {
-                    listPodkategorijas.add(podkategorija);
-                }
-            } else if (!nazivSearch.isEmpty()) {
-                if (!nazivSearch.isEmpty() && podkategorija.getNaziv().startsWith(nazivSearch)) {
-                    listPodkategorijas.add(podkategorija);
-                }
+            if (selectedKategorija != null || !nazivSearch.isEmpty()) {
+                if (selectedKategorija != null && !podkategorija.getKategorija().getId().equals(selectedKategorija.getId()))
+                    continue;
+                if (!nazivSearch.isEmpty() && !podkategorija.getNaziv().startsWith(nazivSearch))
+                    continue;
+
+                listPodkategorijas.add(podkategorija);
             } else {
                 listPodkategorijas.add(podkategorija);
             }

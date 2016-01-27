@@ -182,36 +182,22 @@ public class StavkaFragment extends Fragment implements DataChangeDialogListener
         listStavkas.clear();
 
         for (Stavka stavka : AppObject.getAppInstance().getMojRestoran().getStavkaArrayList()) {
-            if (selectedKategorija != null && selectedPodkategorija != null && !nazivSearch.isEmpty()) {
-                if (stavka.getPodkategorija().getKategorija().getId().equals(selectedKategorija.getId())
-                        && stavka.getPodkategorija().getId().equals(selectedPodkategorija.getId())
-                        && stavka.getNaziv().startsWith(nazivSearch)) {
-                    listStavkas.add(stavka);
-                }
-            } else if (selectedKategorija != null && selectedPodkategorija != null) {
-                if (stavka.getPodkategorija().getId().equals(selectedPodkategorija.getId())
-                        && stavka.getPodkategorija().getKategorija().getId().equals(selectedPodkategorija.getId())) {
-                    listStavkas.add(stavka);
-                }
-            } else if (selectedPodkategorija != null) {
-                if (stavka.getPodkategorija().getId().equals(selectedPodkategorija.getId())) {
-                    listStavkas.add(stavka);
-                }
-            } else if (selectedKategorija != null) {
-                if (stavka.getPodkategorija().getKategorija().getId().equals(selectedKategorija.getId())) {
-                    listStavkas.add(stavka);
-                }
-            } else if (!nazivSearch.isEmpty()) {
-                if (!nazivSearch.isEmpty() && stavka.getNaziv().startsWith(nazivSearch)) {
-                    listStavkas.add(stavka);
-                }
+            if (selectedKategorija != null || selectedPodkategorija != null || !nazivSearch.isEmpty()) {
+                if (selectedKategorija != null && !stavka.getPodkategorija().getKategorija().getId().equals(selectedKategorija.getId()))
+                    continue;
+                if (selectedPodkategorija != null && !stavka.getPodkategorija().getId().equals(selectedPodkategorija.getId()))
+                    continue;
+                if (!nazivSearch.isEmpty() && !stavka.getNaziv().startsWith(nazivSearch))
+                    continue;
+
+                listStavkas.add(stavka);
+
             } else {
                 listStavkas.add(stavka);
             }
         }
 
         stavkaListAdapter.notifyDataSetChanged();
-
     }
 
     @Override

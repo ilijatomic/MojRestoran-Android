@@ -104,24 +104,17 @@ public class AdminKorisniciActivity extends BaseActivity implements DataChangeDi
 
         listKorisnik.clear();
         for (Korisnik korisnik : AppObject.getAppInstance().getMojRestoran().getKorisnikArrayList()) {
-// TODO this logic needs to change
             if (!imeSearch.isEmpty() || !prezimeSearch.isEmpty() || !emailSearch.isEmpty() || !tip.isEmpty()) {
-                if (korisnik.getIme().startsWith(imeSearch) && !imeSearch.isEmpty()) {
-                    listKorisnik.add(korisnik);
-                    break;
-                }
-                if (korisnik.getPrezime().startsWith(prezimeSearch) && !prezimeSearch.isEmpty()) {
-                    listKorisnik.add(korisnik);
-                    break;
-                }
-                if (korisnik.getEmail().startsWith(emailSearch) && !emailSearch.isEmpty()) {
-                    listKorisnik.add(korisnik);
-                    break;
-                }
-                if (korisnik.getTip().startsWith(tip) && !tip.isEmpty()) {
-                    listKorisnik.add(korisnik);
-                    break;
-                }
+                if (!korisnik.getIme().startsWith(imeSearch) && !imeSearch.isEmpty())
+                    continue;
+                if (!korisnik.getPrezime().startsWith(prezimeSearch) && !prezimeSearch.isEmpty())
+                    continue;
+                if (!korisnik.getEmail().startsWith(emailSearch) && !emailSearch.isEmpty())
+                    continue;
+                if (!korisnik.getTip().startsWith(tip) && !tip.isEmpty())
+                    continue;
+
+                listKorisnik.add(korisnik);
             } else {
                 listKorisnik.add(korisnik);
             }

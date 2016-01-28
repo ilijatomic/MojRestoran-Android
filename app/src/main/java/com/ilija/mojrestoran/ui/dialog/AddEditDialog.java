@@ -4,20 +4,23 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
+import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
-import com.ilija.mojrestoran.model.Korisnik;
-import com.ilija.mojrestoran.model.Sto;
+import com.ilija.mojrestoran.ui.activity.KonobarNarudzbinaActivity;
 import com.ilija.mojrestoran.ui.viewholder.DialogView;
 import com.ilija.mojrestoran.ui.viewholder.KategorijaDialogView;
 import com.ilija.mojrestoran.ui.viewholder.KorisnikDialogView;
+import com.ilija.mojrestoran.ui.viewholder.NewNarudzbinaDialogView;
 import com.ilija.mojrestoran.ui.viewholder.PodkategorijaDialogView;
 import com.ilija.mojrestoran.ui.viewholder.StavkaDialogView;
 import com.ilija.mojrestoran.ui.viewholder.StoDialogView;
+import com.ilija.mojrestoran.util.Constants;
 
 /**
  * Created by Ilija on 1/16/2016.
@@ -26,15 +29,15 @@ public class AddEditDialog extends DialogFragment {
 
     private String id;
 
-    private DataChangeDialogListener dataChangeDialogListener;
+    private DataChangeListener dataChangeListener;
     private DialogDataType dialogDataType;
     private DialogView dialogView;
 
     public AddEditDialog() {}
 
-    public AddEditDialog(String id, DataChangeDialogListener dataChangeDialogListener, DialogDataType dialogDataType) {
+    public AddEditDialog(String id, DataChangeListener dataChangeListener, DialogDataType dialogDataType) {
         this.id = id;
-        this.dataChangeDialogListener = dataChangeDialogListener;
+        this.dataChangeListener = dataChangeListener;
         this.dialogDataType = dialogDataType;
     }
 
@@ -64,7 +67,13 @@ public class AddEditDialog extends DialogFragment {
                     public void onClick(View v) {
                         if (dialogView.saveData()) {
                             getDialog().dismiss();
-                            dataChangeDialogListener.onDataChanged();
+                            dataChangeListener.onDataChanged();
+                            if (dialogDataType == DialogDataType.NARUDZBINA) {
+                                Intent intent = new Intent(getActivity(), KonobarNarudzbinaActivity.class);
+                                intent.putExtra(Constants.EXTRA_NARUDZBINA_ID,
+                                        AppObject.getAppInstance().getMojRestoran().getNenaplaceneNarudzbine().get(AppObject.getAppInstance().getMojRestoran().getNenaplaceneNarudzbine().size() - 1).getId());
+                                getActivity().startActivity(intent);
+                            }
                         }
                     }
                 });
@@ -98,6 +107,9 @@ public class AddEditDialog extends DialogFragment {
                 dialogView = new StavkaDialogView(getActivity(), id, view);
                 dialogView.setData();
                 break;
+            case NARUDZBINA:
+                dialogView = new NewNarudzbinaDialogView(getActivity(), view);
+                break;
         }
 
     }
@@ -116,6 +128,8 @@ public class AddEditDialog extends DialogFragment {
                 return inflater.inflate(R.layout.dialog_add_edit_podkategorija, null);
             case STAVKA:
                 return inflater.inflate(R.layout.dialog_add_edit_stavka, null);
+            case NARUDZBINA:
+                return inflater.inflate(R.layout.dialog_add_narudzbina, null);
             default:
                 return null;
         }

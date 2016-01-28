@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
+import com.ilija.mojrestoran.model.Narudzbina;
 import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.model.Sto;
@@ -23,12 +24,12 @@ public class DeleteDialog extends DialogFragment {
     private String title;
     private String message;
 
-    private DataChangeDialogListener dataChangeDialogListener;
+    private DataChangeListener dataChangeListener;
     private DialogDataType dialogDataType;
 
-    public DeleteDialog(String id, DataChangeDialogListener dataChangeDialogListener, DialogDataType dialogDataType) {
+    public DeleteDialog(String id, DataChangeListener dataChangeListener, DialogDataType dialogDataType) {
         this.id = id;
-        this.dataChangeDialogListener = dataChangeDialogListener;
+        this.dataChangeListener = dataChangeListener;
         this.dialogDataType = dialogDataType;
     }
 
@@ -58,6 +59,9 @@ public class DeleteDialog extends DialogFragment {
                                 break;
                             case STAVKA:
                                 deleteStavka();
+                                break;
+                            case NARUDZBINA:
+                                deleteNarudzbina();
                                 break;
                         }
 
@@ -94,6 +98,10 @@ public class DeleteDialog extends DialogFragment {
                 title = "Obrisi stavku";
                 message = "Da li ste sigurni da zelite da obriste stavku?";
                 break;
+            case NARUDZBINA:
+                title = "Obrisi narudzbinu";
+                message = "Da li ste sigurni da zelite da obrisete narudzbinu";
+                break;
         }
     }
 
@@ -108,7 +116,7 @@ public class DeleteDialog extends DialogFragment {
             if (korisnik.getId().equals(id)) {
                 AppObject.getAppInstance().getMojRestoran().getKorisnikArrayList().remove(korisnik);
                 AppObject.getAppInstance().updateRestoranBase();
-                dataChangeDialogListener.onDataChanged();
+                dataChangeListener.onDataChanged();
                 break;
             }
         }
@@ -120,7 +128,7 @@ public class DeleteDialog extends DialogFragment {
             if (sto.getId().equals(id)) {
                 AppObject.getAppInstance().getMojRestoran().getStoArrayList().remove(sto);
                 AppObject.getAppInstance().updateRestoranBase();
-                dataChangeDialogListener.onDataChanged();
+                dataChangeListener.onDataChanged();
                 break;
             }
         }
@@ -132,7 +140,7 @@ public class DeleteDialog extends DialogFragment {
             if (kategorija.getId().equals(id)) {
                 AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList().remove(kategorija);
                 AppObject.getAppInstance().updateRestoranBase();
-                dataChangeDialogListener.onDataChanged();
+                dataChangeListener.onDataChanged();
                 break;
             }
         }
@@ -144,7 +152,7 @@ public class DeleteDialog extends DialogFragment {
             if (podkategorija.getId().equals(id)) {
                 AppObject.getAppInstance().getMojRestoran().getPodkategorijaArrayList().remove(podkategorija);
                 AppObject.getAppInstance().updateRestoranBase();
-                dataChangeDialogListener.onDataChanged();
+                dataChangeListener.onDataChanged();
                 break;
             }
     }
@@ -155,7 +163,17 @@ public class DeleteDialog extends DialogFragment {
             if (stavka.getId().equals(id)) {
                 AppObject.getAppInstance().getMojRestoran().getStavkaArrayList().remove(stavka);
                 AppObject.getAppInstance().updateRestoranBase();
-                dataChangeDialogListener.onDataChanged();
+                dataChangeListener.onDataChanged();
+                break;
+            }
+    }
+
+    private void deleteNarudzbina() {
+        for (Narudzbina narudzbina : AppObject.getAppInstance().getMojRestoran().getNenaplaceneNarudzbine())
+            if (narudzbina.getId().equals(id)) {
+                AppObject.getAppInstance().getMojRestoran().getNenaplaceneNarudzbine().remove(narudzbina);
+                AppObject.getAppInstance().updateRestoranBase();
+                dataChangeListener.onDataChanged();
                 break;
             }
     }

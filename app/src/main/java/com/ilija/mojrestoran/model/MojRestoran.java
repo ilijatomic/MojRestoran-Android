@@ -13,16 +13,18 @@ public class MojRestoran {
     private ArrayList<Stavka> stavkaArrayList;
     private ArrayList<Sto> stoArrayList;
     private ArrayList<Narudzbina> narudzbinaArrayList;
+    private ArrayList<Narudzbina> nenaplaceneNarudzbine;
 
     public MojRestoran(ArrayList<Korisnik> korisnikArrayList, ArrayList<Kategorija> kategorijaArrayList,
                        ArrayList<Podkategorija> podkategorijaArrayList, ArrayList<Stavka> stavkaArrayList,
-                       ArrayList<Sto> stoArrayList, ArrayList<Narudzbina> narudzbinaArrayList) {
+                       ArrayList<Sto> stoArrayList, ArrayList<Narudzbina> narudzbinaArrayList, ArrayList<Narudzbina> nenaplaceneNarudzbine) {
         this.korisnikArrayList = korisnikArrayList;
         this.kategorijaArrayList = kategorijaArrayList;
         this.podkategorijaArrayList = podkategorijaArrayList;
         this.stavkaArrayList = stavkaArrayList;
         this.stoArrayList = stoArrayList;
         this.narudzbinaArrayList = narudzbinaArrayList;
+        this.nenaplaceneNarudzbine = nenaplaceneNarudzbine;
     }
 
     public ArrayList<Korisnik> getKorisnikArrayList() {
@@ -57,5 +59,11 @@ public class MojRestoran {
         if (stavkaArrayList == null)
             stavkaArrayList = new ArrayList<>();
         return stavkaArrayList;
+    }
+
+    public ArrayList<Narudzbina> getNenaplaceneNarudzbine() {
+        if (nenaplaceneNarudzbine == null)
+            nenaplaceneNarudzbine = new ArrayList<>();
+        return nenaplaceneNarudzbine;
     }
 }

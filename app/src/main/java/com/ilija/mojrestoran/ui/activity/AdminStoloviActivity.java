@@ -2,7 +2,6 @@ package com.ilija.mojrestoran.ui.activity;
 
 import android.app.DialogFragment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -14,12 +13,12 @@ import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.ui.adapter.StoloviListAdapter;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
-import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
+import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.ui.dialog.DialogDataType;
 
 import java.util.ArrayList;
 
-public class AdminStoloviActivity extends BaseActivity implements DataChangeDialogListener, View.OnClickListener {
+public class AdminStoloviActivity extends BaseActivity implements DataChangeListener, View.OnClickListener {
 
     private EditText etBroj;
     private ImageButton btnSearch;

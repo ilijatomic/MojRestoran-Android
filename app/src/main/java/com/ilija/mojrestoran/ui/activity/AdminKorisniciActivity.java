@@ -15,12 +15,12 @@ import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.ui.adapter.KorisniciListAdapter;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
-import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
+import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.ui.dialog.DialogDataType;
 
 import java.util.ArrayList;
 
-public class AdminKorisniciActivity extends BaseActivity implements DataChangeDialogListener, View.OnClickListener {
+public class AdminKorisniciActivity extends BaseActivity implements DataChangeListener, View.OnClickListener {
 
     private EditText etIme;
     private EditText etPrezime;

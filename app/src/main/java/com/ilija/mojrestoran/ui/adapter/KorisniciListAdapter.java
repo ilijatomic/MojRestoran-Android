@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
-import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
+import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.ui.dialog.DeleteDialog;
 import com.ilija.mojrestoran.ui.dialog.DialogDataType;
 
@@ -25,15 +25,15 @@ import java.util.ArrayList;
 public class KorisniciListAdapter extends ArrayAdapter<Korisnik> {
 
     private Context context;
-    private DataChangeDialogListener dataChangeDialogListener;
+    private DataChangeListener dataChangeListener;
     private ArrayList<Korisnik> korisniks;
 
-    public KorisniciListAdapter(Context context, int resource, ArrayList<Korisnik> objects, DataChangeDialogListener dataChangeDialogListener) {
+    public KorisniciListAdapter(Context context, int resource, ArrayList<Korisnik> objects, DataChangeListener dataChangeListener) {
         super(context, resource, objects);
 
         this.context = context;
         this.korisniks = objects;
-        this.dataChangeDialogListener = dataChangeDialogListener;
+        this.dataChangeListener = dataChangeListener;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class KorisniciListAdapter extends ArrayAdapter<Korisnik> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment editKorisnik = new AddEditDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.KORISNIK);
+                DialogFragment editKorisnik = new AddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.KORISNIK);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 editKorisnik.show(fragmentActivity.getFragmentManager(), "EditKorisnik");
             }
@@ -67,7 +67,7 @@ public class KorisniciListAdapter extends ArrayAdapter<Korisnik> {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment deleteKorisnik = new DeleteDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.KORISNIK);
+                DialogFragment deleteKorisnik = new DeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.KORISNIK);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 deleteKorisnik.show(fragmentActivity.getFragmentManager(), "DeleteKorisnik");
             }

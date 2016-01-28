@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
-import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
+import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.ui.dialog.DeleteDialog;
 import com.ilija.mojrestoran.ui.dialog.DialogDataType;
 
@@ -25,15 +25,15 @@ import java.util.ArrayList;
 public class StoloviListAdapter extends ArrayAdapter<Sto> {
 
     private Context context;
-    private DataChangeDialogListener dataChangeDialogListener;
+    private DataChangeListener dataChangeListener;
     private ArrayList<Sto> stos;
 
-    public StoloviListAdapter(Context context, int resource, ArrayList<Sto> objects, DataChangeDialogListener dataChangeDialogListener) {
+    public StoloviListAdapter(Context context, int resource, ArrayList<Sto> objects, DataChangeListener dataChangeListener) {
         super(context, resource, objects);
 
         this.context = context;
         this.stos = objects;
-        this.dataChangeDialogListener = dataChangeDialogListener;
+        this.dataChangeListener = dataChangeListener;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class StoloviListAdapter extends ArrayAdapter<Sto> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment editSto = new AddEditDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.STO);
+                DialogFragment editSto = new AddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STO);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 editSto.show(fragmentActivity.getFragmentManager(), "EditSto");
             }
@@ -67,7 +67,7 @@ public class StoloviListAdapter extends ArrayAdapter<Sto> {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment deleteSto = new DeleteDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.STO);
+                DialogFragment deleteSto = new DeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STO);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 deleteSto.show(fragmentActivity.getFragmentManager(), "DeleteSto");
             }

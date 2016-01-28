@@ -9,20 +9,30 @@ import java.util.HashMap;
  */
 public class Narudzbina {
 
+    private String id;
     private boolean naplacena;
     private Date datum;
     private Sto sto;
     private Korisnik korisnik;
-    private HashMap<Stavka, Integer> stavka = new HashMap<>();
+    private HashMap<Stavka, Integer> stavka;
     private ArrayList<Racun> racunArrayList;
 
-    public Narudzbina(boolean naplacena, Date datum, Sto sto, Korisnik korisnik, HashMap<Stavka, Integer> stavka, ArrayList<Racun> racunArrayList) {
+    public Narudzbina(String id, boolean naplacena, Date datum, Sto sto, Korisnik korisnik, HashMap<Stavka, Integer> stavka, ArrayList<Racun> racunArrayList) {
+        this.id = id;
         this.naplacena = naplacena;
         this.datum = datum;
         this.sto = sto;
         this.korisnik = korisnik;
         this.stavka = stavka;
         this.racunArrayList = racunArrayList;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public boolean isNaplacena() {
@@ -58,6 +68,8 @@ public class Narudzbina {
     }
 
     public HashMap<Stavka, Integer> getStavka() {
+        if (stavka == null)
+            stavka = new HashMap<>();
         return stavka;
     }
 
@@ -66,6 +78,8 @@ public class Narudzbina {
     }
 
     public ArrayList<Racun> getRacunArrayList() {
+        if (racunArrayList == null)
+            racunArrayList = new ArrayList<>();
         return racunArrayList;
     }
 

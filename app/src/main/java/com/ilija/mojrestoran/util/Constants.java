@@ -14,4 +14,6 @@ public class Constants {
     public static final String USER_LOGIN_ADMIN = "admin";
     public static final String USER_LOGIN_KONOBAR = "konobar";
 
+    public static final String EXTRA_NARUDZBINA_ID = "narudzbina_id";
+
 }

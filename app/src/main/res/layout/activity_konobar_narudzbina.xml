@@ -4,16 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activity.KonobarHomeActivity">
+    tools:context=".ui.activity.KonobarNarudzbinaActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
+
+    <AutoCompleteTextView
+        android:id="@+id/actv_stavka"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="stavka" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="#c0c0c0" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ListView
-            android:id="@+id/lv_konobar_narudzbine"
+            android:id="@+id/lv_narudzbina_stavka"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -22,12 +35,14 @@
 
         </ListView>
 
-        <include
-            layout="@layout/float_button_add"
+        <Button
+            android:id="@+id/naplati"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="Naplati" />
 
     </RelativeLayout>
 

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.MojRestoran;
+import com.ilija.mojrestoran.model.Narudzbina;
 import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.model.Sto;
@@ -177,6 +178,22 @@ public class AppObject extends Application {
 
     public boolean checkIfLoggedUser(String id) {
         return ulogovanKorisnik.getId().equals(id);
+    }
+
+    public ArrayList<Sto> getSlobodniStolovi() {
+
+        ArrayList<Sto> slobodni = new ArrayList<>();
+
+        if (mojRestoran.getNenaplaceneNarudzbine().size() > 0) {
+            for (Sto sto : mojRestoran.getStoArrayList())
+                for (Narudzbina narudzbina : mojRestoran.getNenaplaceneNarudzbine())
+                    if (!sto.getId().equals(narudzbina.getSto().getId()))
+                        slobodni.add(sto);
+        } else {
+            for (Sto sto : mojRestoran.getStoArrayList())
+                slobodni.add(sto);
+        }
+        return slobodni;
     }
 
     /*public void updateRestoranBase() {

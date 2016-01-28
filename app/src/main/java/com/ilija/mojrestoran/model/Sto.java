@@ -28,4 +28,9 @@ public class Sto {
     public void setBroj(int broj) {
         this.broj = broj;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(broj);
+    }
 }

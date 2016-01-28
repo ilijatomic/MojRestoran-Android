@@ -22,7 +22,7 @@ import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.ui.adapter.StavkaListAdapter;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
-import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
+import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.ui.dialog.DialogDataType;
 import com.ilija.mojrestoran.util.Utilities;
 
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 /**
  */
-public class StavkaFragment extends Fragment implements DataChangeDialogListener, View.OnClickListener {
+public class StavkaFragment extends Fragment implements DataChangeListener, View.OnClickListener {
 
     private EditText etNaziv;
     private EditText etCena;

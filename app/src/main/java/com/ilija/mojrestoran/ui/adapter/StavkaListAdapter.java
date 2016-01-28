@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
-import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
+import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.ui.dialog.DeleteDialog;
 import com.ilija.mojrestoran.ui.dialog.DialogDataType;
 
@@ -27,15 +27,15 @@ public class StavkaListAdapter extends ArrayAdapter<Stavka> {
 
     private Context context;
     private Fragment fragment;
-    private DataChangeDialogListener dataChangeDialogListener;
+    private DataChangeListener dataChangeListener;
     private ArrayList<Stavka> stavkas;
 
-    public StavkaListAdapter(Fragment fragment, int resource, ArrayList<Stavka> objects, DataChangeDialogListener dataChangeDialogListener) {
+    public StavkaListAdapter(Fragment fragment, int resource, ArrayList<Stavka> objects, DataChangeListener dataChangeListener) {
         super(fragment.getContext(), resource, objects);
 
         this.context = fragment.getContext();
         this.stavkas = objects;
-        this.dataChangeDialogListener = dataChangeDialogListener;
+        this.dataChangeListener = dataChangeListener;
         this.fragment = fragment;
     }
 
@@ -60,7 +60,7 @@ public class StavkaListAdapter extends ArrayAdapter<Stavka> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment editPodkategorija = new AddEditDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.STAVKA);
+                DialogFragment editPodkategorija = new AddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STAVKA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 editPodkategorija.show(fragmentActivity.getFragmentManager(), "EditPodkategorija");
             }
@@ -70,7 +70,7 @@ public class StavkaListAdapter extends ArrayAdapter<Stavka> {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment deleteKategorija = new DeleteDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.STAVKA);
+                DialogFragment deleteKategorija = new DeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STAVKA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 deleteKategorija.show(fragmentActivity.getFragmentManager(), "DeleteStavka");
             }

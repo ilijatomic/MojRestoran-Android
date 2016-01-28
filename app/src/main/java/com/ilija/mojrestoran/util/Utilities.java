@@ -28,7 +28,8 @@ public class Utilities {
     public static void populateSpinnerStrings(ArrayList<String> strings, ArrayList<?> objects, String first) {
 
         strings.clear();
-        strings.add(first);
+        if (!first.isEmpty())
+            strings.add(first);
         if (objects.size() > 0) {
             for (Object o : objects) {
                 strings.add(o.toString());

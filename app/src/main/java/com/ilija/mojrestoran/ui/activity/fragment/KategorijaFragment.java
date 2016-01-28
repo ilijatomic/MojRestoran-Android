@@ -16,12 +16,12 @@ import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.ui.adapter.KategorijeListAdapter;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
-import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
+import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.ui.dialog.DialogDataType;
 
 import java.util.ArrayList;
 
-public class KategorijaFragment extends Fragment implements View.OnClickListener, DataChangeDialogListener {
+public class KategorijaFragment extends Fragment implements View.OnClickListener, DataChangeListener {
 
     private EditText etNaziv;
     private ImageButton btnSearch;

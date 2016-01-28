@@ -19,7 +19,7 @@ import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.ui.activity.fragment.PodkategorijaFragment;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
-import com.ilija.mojrestoran.ui.dialog.DataChangeDialogListener;
+import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.ui.dialog.DeleteDialog;
 import com.ilija.mojrestoran.ui.dialog.DialogDataType;
 import com.ilija.mojrestoran.util.ToastMessage;
@@ -33,15 +33,15 @@ public class KategorijeListAdapter extends ArrayAdapter<Kategorija> {
 
     private Context context;
     private Fragment fragment;
-    private DataChangeDialogListener dataChangeDialogListener;
+    private DataChangeListener dataChangeListener;
     private ArrayList<Kategorija> kategorijas;
 
-    public KategorijeListAdapter(Fragment fragment, int resource, ArrayList<Kategorija> objects, DataChangeDialogListener dataChangeDialogListener) {
+    public KategorijeListAdapter(Fragment fragment, int resource, ArrayList<Kategorija> objects, DataChangeListener dataChangeListener) {
         super(fragment.getContext(), resource, objects);
 
         this.context = fragment.getContext();
         this.kategorijas = objects;
-        this.dataChangeDialogListener = dataChangeDialogListener;
+        this.dataChangeListener = dataChangeListener;
         this.fragment = fragment;
 
     }
@@ -67,7 +67,7 @@ public class KategorijeListAdapter extends ArrayAdapter<Kategorija> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment editKategorija = new AddEditDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.KATEGORIJA);
+                DialogFragment editKategorija = new AddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.KATEGORIJA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 editKategorija.show(fragmentActivity.getFragmentManager(), "EditKategorija");
             }
@@ -83,7 +83,7 @@ public class KategorijeListAdapter extends ArrayAdapter<Kategorija> {
                         return;
                     }
                 }
-                DialogFragment deleteKategorija = new DeleteDialog(getItem(position).getId(), dataChangeDialogListener, DialogDataType.KATEGORIJA);
+                DialogFragment deleteKategorija = new DeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.KATEGORIJA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 deleteKategorija.show(fragmentActivity.getFragmentManager(), "DeleteKategorija");
             }

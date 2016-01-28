@@ -96,7 +96,12 @@ public class KorisnikDialogView implements DialogView {
         if (tip.equals("tip"))
             return false;
 
-        if (AppObject.getAppInstance().checkIfUserExists(etEmail.getText().toString())) {
+        if (korisnik != null) {
+            if (AppObject.getAppInstance().checkIfOtherUserExist(korisnik.getEmail(), korisnik.getId())) {
+                ToastMessage.showToast(context, "Korisnik sa unetim email vec postoji!");
+                return false;
+            }
+        } else if (AppObject.getAppInstance().checkIfUserExists(etEmail.getText().toString())) {
             ToastMessage.showToast(context, "Korisnik sa unetim email vec postoji!");
             return false;
         }

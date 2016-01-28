@@ -33,7 +33,7 @@ public class PodkategorijaDialogView implements DialogView {
     private ArrayList<EditText> lista = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
 
-    public PodkategorijaDialogView(Context context, String idPodkategorija, View view) {
+    public PodkategorijaDialogView(Context context, String idPodkategorija, View view, Kategorija kategorija) {
         this.context = context;
         this.idPodkategorija = idPodkategorija;
 
@@ -66,6 +66,9 @@ public class PodkategorijaDialogView implements DialogView {
 
             }
         });
+
+        if (kategorija != null)
+            spKategorija.setSelection(arrayAdapter.getPosition(kategorija.getNaziv()));
     }
 
     @Override

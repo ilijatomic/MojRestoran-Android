@@ -57,7 +57,8 @@ public class StoloviListAdapter extends ArrayAdapter<Sto> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment editSto = new AddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STO);
+                AddEditDialog editSto = new AddEditDialog();
+                editSto.setAddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STO);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 editSto.show(fragmentActivity.getFragmentManager(), "EditSto");
             }
@@ -67,7 +68,8 @@ public class StoloviListAdapter extends ArrayAdapter<Sto> {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment deleteSto = new DeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STO);
+                DeleteDialog deleteSto = new DeleteDialog();
+                deleteSto.setDeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STO);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 deleteSto.show(fragmentActivity.getFragmentManager(), "DeleteSto");
             }

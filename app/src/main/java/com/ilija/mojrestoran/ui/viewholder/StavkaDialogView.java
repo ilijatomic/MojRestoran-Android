@@ -30,7 +30,6 @@ public class StavkaDialogView implements DialogView {
     private EditText etCena;
     private TextView tvKategorija;
 
-    private Kategorija kategorija;
     private Podkategorija selectedPodkategorija;
     private Stavka selectedStavka;
     private Context context;
@@ -38,19 +37,18 @@ public class StavkaDialogView implements DialogView {
     private ArrayList<EditText> lista = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
 
-    public StavkaDialogView(Context context, String idStavka, View view) {
+    public StavkaDialogView(Context context, String idStavka, View view, Podkategorija podkategorija) {
         this.context = context;
         this.idStavka = idStavka;
-
-        if (idStavka != null) {
-            selectedStavka = AppObject.getAppInstance().getStavkaById(idStavka);
-            selectedPodkategorija = selectedStavka.getPodkategorija();
-            kategorija = selectedStavka.getPodkategorija().getKategorija();
-        }
 
         etNaziv = (EditText) view.findViewById(R.id.add_naziv_stavke);
         etCena = (EditText) view.findViewById(R.id.add_stavka_cena);
         tvKategorija = (TextView) view.findViewById(R.id.add_tv_kategorija);
+
+        if (idStavka != null) {
+            selectedStavka = AppObject.getAppInstance().getStavkaById(idStavka);
+            selectedPodkategorija = selectedStavka.getPodkategorija();
+        }
 
         spPodkategorija = (Spinner) view.findViewById(R.id.add_podkategorija);
         ArrayList<String> strings = new ArrayList<>();
@@ -63,14 +61,12 @@ public class StavkaDialogView implements DialogView {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
                     selectedPodkategorija = null;
-                    kategorija = null;
                     tvKategorija.setText("kategorija");
                     return;
                 }
                 for (Podkategorija podkategorija : AppObject.getAppInstance().getMojRestoran().getPodkategorijaArrayList())
                     if (podkategorija.getNaziv().equals(arrayAdapter.getItem(position))) {
                         selectedPodkategorija = podkategorija;
-                        kategorija = podkategorija.getKategorija();
                         tvKategorija.setText(podkategorija.getKategorija().getNaziv());
                     }
             }
@@ -80,12 +76,17 @@ public class StavkaDialogView implements DialogView {
 
             }
         });
+
+        if (podkategorija != null) {
+            spPodkategorija.setSelection(arrayAdapter.getPosition(podkategorija.getNaziv()));
+        }
     }
 
     @Override
     public void setData() {
         if (selectedStavka != null) {
             etNaziv.setText(selectedStavka.getNaziv());
+            etCena.setText(String.valueOf(selectedStavka.getCena()));
             tvKategorija.setText(selectedStavka.getPodkategorija().getKategorija().getNaziv());
             spPodkategorija.setSelection(arrayAdapter.getPosition(selectedStavka.getPodkategorija().getNaziv()));
         }
@@ -105,7 +106,6 @@ public class StavkaDialogView implements DialogView {
             return false;
         }
 
-
         if (selectedPodkategorija != null) {
             if (AppObject.getAppInstance().checkIfStavkaExists(etNaziv.getText().toString()) && selectedPodkategorija.getId().equals(selectedStavka.getPodkategorija().getId())) {
                 ToastMessage.showToast(context, "Stavka sa unetim nazivom vec postoji!");
@@ -116,7 +116,7 @@ public class StavkaDialogView implements DialogView {
             return false;
         }
 
-        if (selectedPodkategorija == null) {
+        if (selectedStavka == null) {
             idStavka = UUID.randomUUID().toString();
             selectedStavka = new Stavka(idStavka, etNaziv.getText().toString(), Double.parseDouble(etCena.getText().toString()), selectedPodkategorija);
             AppObject.getAppInstance().getMojRestoran().getStavkaArrayList().add(selectedStavka);

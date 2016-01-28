@@ -61,7 +61,8 @@ public class KonobarNarudzbineListAdapter extends ArrayAdapter<Narudzbina> {
             @Override
             public void onClick(View v) {
 
-                DialogFragment deleteKategorija = new DeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.NARUDZBINA);
+                DeleteDialog deleteKategorija = new DeleteDialog();
+                deleteKategorija.setDeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.NARUDZBINA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 deleteKategorija.show(fragmentActivity.getFragmentManager(), "DeleteNarudzbina");
             }

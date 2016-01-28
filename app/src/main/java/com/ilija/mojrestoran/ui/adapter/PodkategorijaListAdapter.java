@@ -66,7 +66,8 @@ public class PodkategorijaListAdapter extends ArrayAdapter<Podkategorija> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment editPodkategorija = new AddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.PODKATEGORIJA);
+                AddEditDialog editPodkategorija = new AddEditDialog();
+                editPodkategorija.setAddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.PODKATEGORIJA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 editPodkategorija.show(fragmentActivity.getFragmentManager(), "EditPodkategorija");
             }
@@ -83,7 +84,8 @@ public class PodkategorijaListAdapter extends ArrayAdapter<Podkategorija> {
                     }
                 }
 
-                DialogFragment deleteKategorija = new DeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.PODKATEGORIJA);
+                DeleteDialog deleteKategorija = new DeleteDialog();
+                deleteKategorija.setDeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.PODKATEGORIJA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 deleteKategorija.show(fragmentActivity.getFragmentManager(), "DeletePodkategorija");
             }

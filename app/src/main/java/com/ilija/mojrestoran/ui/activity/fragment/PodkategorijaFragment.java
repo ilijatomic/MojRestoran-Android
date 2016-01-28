@@ -175,7 +175,10 @@ public class PodkategorijaFragment extends Fragment implements DataChangeListene
 
     @Override
     public void onClick(View v) {
-        DialogFragment addKategorija = new AddEditDialog(null, this, DialogDataType.PODKATEGORIJA);
+        AddEditDialog addKategorija = new AddEditDialog();
+        addKategorija.setAddEditDialog(null, this, DialogDataType.PODKATEGORIJA);
+        if (selectedKategorija != null)
+            addKategorija.setKategorija(selectedKategorija);
         addKategorija.show(getActivity().getFragmentManager(), "AddPodkategorija");
     }
 

@@ -57,7 +57,8 @@ public class KorisniciListAdapter extends ArrayAdapter<Korisnik> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment editKorisnik = new AddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.KORISNIK);
+                AddEditDialog editKorisnik = new AddEditDialog();
+                editKorisnik.setAddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.KORISNIK);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 editKorisnik.show(fragmentActivity.getFragmentManager(), "EditKorisnik");
             }
@@ -67,7 +68,8 @@ public class KorisniciListAdapter extends ArrayAdapter<Korisnik> {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment deleteKorisnik = new DeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.KORISNIK);
+                DeleteDialog deleteKorisnik = new DeleteDialog();
+                deleteKorisnik.setDeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.KORISNIK);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 deleteKorisnik.show(fragmentActivity.getFragmentManager(), "DeleteKorisnik");
             }

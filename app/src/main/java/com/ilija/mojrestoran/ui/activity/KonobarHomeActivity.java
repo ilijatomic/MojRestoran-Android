@@ -47,7 +47,8 @@ public class KonobarHomeActivity extends BaseActivity implements DataChangeListe
     }
 
     private void addDialog() {
-        DialogFragment addNarudzbina = new AddEditDialog(null, this, DialogDataType.NARUDZBINA);
+        AddEditDialog addNarudzbina = new AddEditDialog();
+        addNarudzbina.setAddEditDialog(null, this, DialogDataType.NARUDZBINA);
         addNarudzbina.show(getFragmentManager(), "AddNarudzbina");
     }
 

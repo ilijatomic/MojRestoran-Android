@@ -13,33 +13,53 @@ public class Racun {
     private Narudzbina narudzbina;
     private Date datum;
     private double cena;
-    private HashMap<Stavka, Integer> stavka = new HashMap<>();
+    private ArrayList<NaruceneStavke> naruceneStavkeArrayList;
 
-    public Racun(String id, Narudzbina narudzbina, Date datum, double cena, HashMap<Stavka, Integer> stavka) {
+    public Racun(String id, Narudzbina narudzbina, Date datum, double cena, ArrayList<NaruceneStavke> naruceneStavkeArrayList) {
         this.id = id;
         this.narudzbina = narudzbina;
         this.datum = datum;
         this.cena = cena;
-        this.stavka = stavka;
+        this.naruceneStavkeArrayList = naruceneStavkeArrayList;
     }
 
     public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Narudzbina getNarudzbina() {
         return narudzbina;
+    }
+
+    public void setNarudzbina(Narudzbina narudzbina) {
+        this.narudzbina = narudzbina;
     }
 
     public Date getDatum() {
         return datum;
     }
 
+    public void setDatum(Date datum) {
+        this.datum = datum;
+    }
+
     public double getCena() {
         return cena;
     }
 
-    public HashMap<Stavka, Integer> getStavka() {
-        return stavka;
+    public void setCena(double cena) {
+        this.cena = cena;
+    }
+
+    public ArrayList<NaruceneStavke> getNaruceneStavkeArrayList() {
+        return naruceneStavkeArrayList;
+    }
+
+    public void setNaruceneStavkeArrayList(ArrayList<NaruceneStavke> naruceneStavkeArrayList) {
+        this.naruceneStavkeArrayList = naruceneStavkeArrayList;
     }
 }

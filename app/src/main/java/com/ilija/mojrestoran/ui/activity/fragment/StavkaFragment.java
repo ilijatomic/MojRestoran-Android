@@ -218,7 +218,10 @@ public class StavkaFragment extends Fragment implements DataChangeListener, View
 
     @Override
     public void onClick(View v) {
-        DialogFragment addStavka = new AddEditDialog(null, this, DialogDataType.STAVKA);
+        AddEditDialog addStavka = new AddEditDialog();
+        addStavka.setAddEditDialog(null, this, DialogDataType.STAVKA);
+        if (selectedPodkategorija != null)
+            addStavka.setPodkategorija(selectedPodkategorija);
         addStavka.show(getActivity().getFragmentManager(), "AddStavka");
     }
 

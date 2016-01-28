@@ -72,6 +72,7 @@ public class AppObject extends Application {
                 mojRestoran.getKorisnikArrayList().remove(korisnik);
                 mojRestoran.getKorisnikArrayList().add(ulogovanKorisnik);
                 updateRestoranBase();
+                break;
             }
         }
     }
@@ -194,6 +195,28 @@ public class AppObject extends Application {
                 slobodni.add(sto);
         }
         return slobodni;
+    }
+
+    public Narudzbina getGetNenaplacenaById(String narudzbinId) {
+        for (Narudzbina narudzbina : mojRestoran.getNenaplaceneNarudzbine())
+            if (narudzbina.getId().equals(narudzbinId))
+                return narudzbina;
+        return null;
+    }
+
+    public Stavka getstavkaByName(String naziv) {
+        for (Stavka stavka : mojRestoran.getStavkaArrayList())
+            if (stavka.getNaziv().equals(naziv))
+                return stavka;
+        return null;
+    }
+
+    public boolean checkIfOtherUserExist(String email, String id) {
+        for (Korisnik korisnik : getMojRestoran().getKorisnikArrayList())
+            if (korisnik.getEmail().equals(email) && !korisnik.getId().equals(id))
+                return true;
+
+        return false;
     }
 
     /*public void updateRestoranBase() {

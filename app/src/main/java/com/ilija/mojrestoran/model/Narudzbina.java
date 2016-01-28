@@ -14,16 +14,16 @@ public class Narudzbina {
     private Date datum;
     private Sto sto;
     private Korisnik korisnik;
-    private HashMap<Stavka, Integer> stavka;
+    private ArrayList<NaruceneStavke> naruceneStavkeArrayList;
     private ArrayList<Racun> racunArrayList;
 
-    public Narudzbina(String id, boolean naplacena, Date datum, Sto sto, Korisnik korisnik, HashMap<Stavka, Integer> stavka, ArrayList<Racun> racunArrayList) {
+    public Narudzbina(String id, boolean naplacena, Date datum, Sto sto, Korisnik korisnik, ArrayList<NaruceneStavke> naruceneStavkeArrayList, ArrayList<Racun> racunArrayList) {
         this.id = id;
         this.naplacena = naplacena;
         this.datum = datum;
         this.sto = sto;
         this.korisnik = korisnik;
-        this.stavka = stavka;
+        this.naruceneStavkeArrayList = naruceneStavkeArrayList;
         this.racunArrayList = racunArrayList;
     }
 
@@ -67,14 +67,14 @@ public class Narudzbina {
         this.korisnik = korisnik;
     }
 
-    public HashMap<Stavka, Integer> getStavka() {
-        if (stavka == null)
-            stavka = new HashMap<>();
-        return stavka;
+    public ArrayList<NaruceneStavke> getNaruceneStavkeArrayList() {
+        if (naruceneStavkeArrayList == null)
+            naruceneStavkeArrayList = new ArrayList<>();
+        return naruceneStavkeArrayList;
     }
 
-    public void setStavka(HashMap<Stavka, Integer> stavka) {
-        this.stavka = stavka;
+    public void setNaruceneStavkeArrayList(ArrayList<NaruceneStavke> naruceneStavkeArrayList) {
+        this.naruceneStavkeArrayList = naruceneStavkeArrayList;
     }
 
     public ArrayList<Racun> getRacunArrayList() {

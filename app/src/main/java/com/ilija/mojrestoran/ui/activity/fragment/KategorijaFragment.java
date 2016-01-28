@@ -117,7 +117,8 @@ public class KategorijaFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        DialogFragment addKategorija = new AddEditDialog(null, this, DialogDataType.KATEGORIJA);
+        AddEditDialog addKategorija = new AddEditDialog();
+        addKategorija.setAddEditDialog(null, this, DialogDataType.KATEGORIJA);
         addKategorija.show(getActivity().getFragmentManager(), "AddKategorija");
     }
 

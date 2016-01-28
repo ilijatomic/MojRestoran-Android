@@ -50,7 +50,7 @@ public class StavkaListAdapter extends ArrayAdapter<Stavka> {
 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.list_item_admin_podkategorija, null);
+            view = layoutInflater.inflate(R.layout.list_item_admin_stavka, null);
         }
 
         view.setTag(position);
@@ -60,7 +60,8 @@ public class StavkaListAdapter extends ArrayAdapter<Stavka> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment editPodkategorija = new AddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STAVKA);
+                AddEditDialog editPodkategorija = new AddEditDialog();
+                editPodkategorija.setAddEditDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STAVKA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 editPodkategorija.show(fragmentActivity.getFragmentManager(), "EditPodkategorija");
             }
@@ -70,7 +71,8 @@ public class StavkaListAdapter extends ArrayAdapter<Stavka> {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment deleteKategorija = new DeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STAVKA);
+                DeleteDialog deleteKategorija = new DeleteDialog();
+                deleteKategorija.setDeleteDialog(getItem(position).getId(), dataChangeListener, DialogDataType.STAVKA);
                 FragmentActivity fragmentActivity = (FragmentActivity) context;
                 deleteKategorija.show(fragmentActivity.getFragmentManager(), "DeleteStavka");
             }
@@ -83,7 +85,7 @@ public class StavkaListAdapter extends ArrayAdapter<Stavka> {
         TextView naziv = (TextView) view.findViewById(R.id.tv_stavka_naziv);
         naziv.setText(getItem(position).getNaziv());
         TextView cena = (TextView) view.findViewById(R.id.tv_stavka_cena);
-        cena.setText("" + getItem(position).getCena());
+        cena.setText("(" + getItem(position).getCena() + ")");
 
         return view;
     }

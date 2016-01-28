@@ -12,6 +12,8 @@ import android.widget.Button;
 
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
+import com.ilija.mojrestoran.model.Kategorija;
+import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.ui.activity.KonobarNarudzbinaActivity;
 import com.ilija.mojrestoran.ui.viewholder.DialogView;
 import com.ilija.mojrestoran.ui.viewholder.KategorijaDialogView;
@@ -27,15 +29,18 @@ import com.ilija.mojrestoran.util.Constants;
  */
 public class AddEditDialog extends DialogFragment {
 
-    private String id;
+    private static String id;
 
-    private DataChangeListener dataChangeListener;
-    private DialogDataType dialogDataType;
-    private DialogView dialogView;
+    private static DataChangeListener dataChangeListener;
+    private static DialogDataType dialogDataType;
+    private static DialogView dialogView;
+
+    private static Kategorija kategorija;
+    private static Podkategorija podkategorija;
 
     public AddEditDialog() {}
 
-    public AddEditDialog(String id, DataChangeListener dataChangeListener, DialogDataType dialogDataType) {
+    public void setAddEditDialog(String id, DataChangeListener dataChangeListener, DialogDataType dialogDataType) {
         this.id = id;
         this.dataChangeListener = dataChangeListener;
         this.dialogDataType = dialogDataType;
@@ -100,11 +105,11 @@ public class AddEditDialog extends DialogFragment {
                 dialogView.setData();
                 break;
             case PODKATEGORIJA:
-                dialogView = new PodkategorijaDialogView(getActivity(), id, view);
+                dialogView = new PodkategorijaDialogView(getActivity(), id, view, kategorija);
                 dialogView.setData();
                 break;
             case STAVKA:
-                dialogView = new StavkaDialogView(getActivity(), id, view);
+                dialogView = new StavkaDialogView(getActivity(), id, view, podkategorija);
                 dialogView.setData();
                 break;
             case NARUDZBINA:
@@ -134,5 +139,13 @@ public class AddEditDialog extends DialogFragment {
                 return null;
         }
 
+    }
+
+    public void setKategorija(Kategorija kategorija) {
+        this.kategorija = kategorija;
+    }
+
+    public void setPodkategorija(Podkategorija podkategorija) {
+        this.podkategorija = podkategorija;
     }
 }

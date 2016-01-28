@@ -20,14 +20,16 @@ import com.ilija.mojrestoran.util.ToastMessage;
  */
 public class DeleteDialog extends DialogFragment {
 
-    private String id;
-    private String title;
-    private String message;
+    private static String id;
+    private static String title;
+    private static String message;
 
-    private DataChangeListener dataChangeListener;
-    private DialogDataType dialogDataType;
+    private static DataChangeListener dataChangeListener;
+    private static DialogDataType dialogDataType;
 
-    public DeleteDialog(String id, DataChangeListener dataChangeListener, DialogDataType dialogDataType) {
+    public DeleteDialog() {}
+
+    public void setDeleteDialog(String id, DataChangeListener dataChangeListener, DialogDataType dialogDataType) {
         this.id = id;
         this.dataChangeListener = dataChangeListener;
         this.dialogDataType = dialogDataType;

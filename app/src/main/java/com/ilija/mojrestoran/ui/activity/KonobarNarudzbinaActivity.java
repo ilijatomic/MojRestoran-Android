@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.ilija.mojrestoran.AppObject;
@@ -16,19 +17,21 @@ import com.ilija.mojrestoran.model.Narudzbina;
 import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.ui.adapter.KonobarStavkeListAdapter;
 import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
+import com.ilija.mojrestoran.ui.dialog.NaplatiDialog;
 import com.ilija.mojrestoran.util.Constants;
 import com.ilija.mojrestoran.util.Utilities;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-public class KonobarNarudzbinaActivity extends BaseActivity implements DataChangeListener {
+public class KonobarNarudzbinaActivity extends BaseActivity implements DataChangeListener, View.OnClickListener {
 
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayList<NaruceneStavke> listStavke;
     private KonobarStavkeListAdapter konobarStavkeListAdapter;
     private Narudzbina narudzbina;
     private ListView stavke;
+    private Button naplati;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,9 @@ public class KonobarNarudzbinaActivity extends BaseActivity implements DataChang
         stavke = (ListView) findViewById(R.id.lv_narudzbina_stavka);
         stavke.setAdapter(konobarStavkeListAdapter);
 
+        naplati = (Button) findViewById(R.id.naplati);
+        naplati.setOnClickListener(this);
+
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -77,5 +83,12 @@ public class KonobarNarudzbinaActivity extends BaseActivity implements DataChang
     @Override
     public void onDataChanged() {
         konobarStavkeListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View v) {
+        NaplatiDialog naplatiDialog = new NaplatiDialog();
+        naplatiDialog.setNaplatiDialog(narudzbina, this);
+        naplatiDialog.show(getFragmentManager(), "NaplatiDialog");
     }
 }

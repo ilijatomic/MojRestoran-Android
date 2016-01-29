@@ -23,11 +23,13 @@ public class KonobarStavkeListAdapter extends ArrayAdapter<NaruceneStavke> {
     private Context context;
     private DataChangeListener dataChangeListener;
     private ArrayList<NaruceneStavke> naruceneStavkes;
+    private int viewLayout;
 
     public KonobarStavkeListAdapter(Context context, int resource, ArrayList<NaruceneStavke> objects, DataChangeListener dataChangeListener) {
         super(context, resource, objects);
         this.dataChangeListener = dataChangeListener;
         this.naruceneStavkes = objects;
+        this.viewLayout = resource;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class KonobarStavkeListAdapter extends ArrayAdapter<NaruceneStavke> {
 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.list_item_konobar_narudzbina_detalji, null);
+            view = layoutInflater.inflate(viewLayout, null);
         }
 
         view.setTag(position);
@@ -74,8 +76,10 @@ public class KonobarStavkeListAdapter extends ArrayAdapter<NaruceneStavke> {
 
         TextView naziv = (TextView) view.findViewById(R.id.tv_narudzbina_stavka);
         naziv.setText(getItem(position).getStavka().getNaziv());
-        TextView cena = (TextView) view.findViewById(R.id.tv_narudzbina_stavka_cena);
-        cena.setText(String.valueOf(getItem(position).getStavka().getCena() * getItem(position).getKolicina()));
+        if (viewLayout == R.layout.list_item_konobar_narudzbina_detalji) {
+            TextView cena = (TextView) view.findViewById(R.id.tv_narudzbina_stavka_cena);
+            cena.setText(String.valueOf(getItem(position).getStavka().getCena() * getItem(position).getKolicina()));
+        }
         TextView kolicina = (TextView) view.findViewById(R.id.tv_narudzbina_stavka_kolicina);
         kolicina.setText("" + getItem(position).getKolicina());
 

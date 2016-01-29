@@ -13,9 +13,12 @@ import android.widget.TextView;
 import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.NaruceneStavke;
 import com.ilija.mojrestoran.model.Narudzbina;
+import com.ilija.mojrestoran.model.Racun;
 import com.ilija.mojrestoran.ui.adapter.KonobarStavkeListAdapter;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by ilija.tomic on 1/29/2016.
@@ -36,12 +39,11 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
         konobarStavkeListAdapter = new KonobarStavkeListAdapter(getActivity(), R.layout.list_item_konobar_naplati, naruceneStavkes, this);
         stavke.setAdapter(konobarStavkeListAdapter);
         tvUkupno = (TextView) view.findViewById(R.id.tv_ukupno_naplati);
-
-        izracunajUkupnuCenu();
+        tvUkupno.setText(String.valueOf(izracunajUkupnuCenu(naruceneStavkes)));
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setView(view)
-                .setTitle("Naplata narudzbinu za stolom " + narudzbina.getSto().getBroj())
+                .setTitle("Naplata narudzbine za stolom " + narudzbina.getSto().getBroj())
                 .setPositiveButton("Naplati", null)
                 .setNegativeButton("Odustani", new DialogInterface.OnClickListener() {
                     @Override
@@ -57,6 +59,14 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String racunId = UUID.randomUUID().toString();
+                        if (Double.parseDouble(tvUkupno.getText().toString()) == izracunajUkupnuCenu(narudzbina.getNaruceneStavkeArrayList())) {
+                            Racun racun = new Racun(racunId, narudzbina, new Date(), Double.parseDouble(tvUkupno.getText().toString()), naruceneStavkes);
+                            narudzbina.setNaplacena(true);
+                            narudzbina.set
+                        } else {
+
+                        }
                         dataChangeListener.onDataChanged();
                     }
                 });
@@ -66,14 +76,14 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
         return alertDialog;
     }
 
-    private void izracunajUkupnuCenu() {
+    private double izracunajUkupnuCenu(ArrayList<NaruceneStavke> stavkes) {
 
         double ukupno = 0;
-        for (NaruceneStavke naruceneStavke : naruceneStavkes) {
+        for (NaruceneStavke naruceneStavke : stavkes) {
             ukupno += naruceneStavke.getStavka().getCena() * naruceneStavke.getKolicina();
         }
 
-        tvUkupno.setText("Za naplatu: " + ukupno);
+        return ukupno;
     }
 
     public void setNaplatiDialog(Narudzbina selectedNarudzbina, DataChangeListener dataChangeListener) {
@@ -89,6 +99,6 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
     @Override
     public void onDataChanged() {
         konobarStavkeListAdapter.notifyDataSetChanged();
-        izracunajUkupnuCenu();
+        tvUkupno.setText(String.valueOf(izracunajUkupnuCenu(naruceneStavkes)));
     }
 }

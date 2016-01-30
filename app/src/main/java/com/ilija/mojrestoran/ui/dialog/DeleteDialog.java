@@ -176,7 +176,9 @@ public class DeleteDialog extends DialogFragment {
             if (narudzbina.getId().equals(id)) {
                 if (narudzbina.getRacunArrayList().size() > 0) {
                     narudzbina.setNaplacena(true);
+                    narudzbina.setNenaplaceneStavke(null);
                     AppObject.getAppInstance().updateRestoranBase();
+                    dataChangeListener.onDataChanged();
                     break;
                 } else {
                     AppObject.getAppInstance().getMojRestoran().getNarudzbinaArrayList().remove(narudzbina);

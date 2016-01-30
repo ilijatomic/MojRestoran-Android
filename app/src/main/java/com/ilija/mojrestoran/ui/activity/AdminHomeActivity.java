@@ -51,6 +51,9 @@ public class AdminHomeActivity extends BaseActivity implements View.OnClickListe
                 intent = new Intent(this, AdminMeniActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.btn_Narudzbine:
+                intent = new Intent(this, AdminNarudzbineActivity.class);
+                startActivity(intent);
             default:
                 break;
         }

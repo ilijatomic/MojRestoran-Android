@@ -15,6 +15,7 @@ import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.NaruceneStavke;
 import com.ilija.mojrestoran.model.Narudzbina;
 import com.ilija.mojrestoran.model.Racun;
+import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.ui.adapter.KonobarStavkeListAdapter;
 
 import java.util.ArrayList;
@@ -68,8 +69,19 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
                             AppObject.getAppInstance().updateRestoranBase();
                             racunChangeListener.naplaceno(true);
                         } else {
-
+                            for (NaruceneStavke naruceneStavke : narudzbina.getNenaplaceneStavke()) {
+                                NaruceneStavke naplatiStavku = getStavkaNaplata(naruceneStavke);
+                                if (naplatiStavku != null) {
+                                    Integer nenaplacena = naruceneStavke.getKolicina();
+                                    Integer naplacena = naplatiStavku.getKolicina();
+                                    naruceneStavke.setKolicina(nenaplacena - naplacena);
+                                }
+                            }
+                            Racun racun = new Racun(racunId, new Date(), izracunajUkupnuCenu(naruceneStavkes), naruceneStavkes);
+                            narudzbina.getRacunArrayList().add(racun);
+                            AppObject.getAppInstance().updateRestoranBase();
                             racunChangeListener.naplaceno(false);
+                            getDialog().dismiss();
                         }
                     }
                 });
@@ -77,6 +89,13 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
         });
 
         return alertDialog;
+    }
+
+    private NaruceneStavke getStavkaNaplata(NaruceneStavke stavka) {
+        for (NaruceneStavke naruceneStavke : naruceneStavkes)
+            if (naruceneStavke.getStavka().getId().equals(stavka.getStavka().getId()))
+                return naruceneStavke;
+        return null;
     }
 
     private double izracunajUkupnuCenu(ArrayList<NaruceneStavke> stavkes) {

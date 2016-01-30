@@ -69,6 +69,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.KonobarHomeActivity" />
         </activity>
+        <activity
+            android:name=".ui.activity.AdminNarudzbineActivity"
+            android:label="Narudzbine"
+            android:parentActivityName=".ui.activity.AdminHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.AdminHomeActivity" />
+        </activity>
+        <activity
+            android:name=".ui.activity.AdminNarudzbinaDetaljiActivity"
+            android:label="Detalji narudzbine"
+            android:parentActivityName=".ui.activity.AdminNarudzbineActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.AdminNarudzbineActivity" />
+        </activity>
     </application>
 
 </manifest>

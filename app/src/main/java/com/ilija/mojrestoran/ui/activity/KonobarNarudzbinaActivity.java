@@ -22,6 +22,7 @@ import com.ilija.mojrestoran.util.ToastMessage;
 import com.ilija.mojrestoran.util.Utilities;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class KonobarNarudzbinaActivity extends BaseActivity implements DataChangeListener, View.OnClickListener, RacunChangeListener {
 
@@ -94,9 +95,15 @@ public class KonobarNarudzbinaActivity extends BaseActivity implements DataChang
     @Override
     public void naplaceno(boolean celaNarudzbina) {
         if (celaNarudzbina) {
-            ToastMessage.showToast(this, "Narudzbina naplacena!");
+            ToastMessage.showToast(this, "Narudzbina kompletno naplacena!");
             finish();
         } else {
+            ToastMessage.showToast(this, "Naplacen deo racuna narudzbine!");
+            for (Iterator<NaruceneStavke> iterator = listStavke.iterator(); iterator.hasNext(); ) {
+                NaruceneStavke temp = iterator.next();
+                if (temp.getKolicina() == 0)
+                    iterator.remove();
+            }
             konobarStavkeListAdapter.notifyDataSetChanged();
         }
     }

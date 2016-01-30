@@ -2,7 +2,6 @@ package com.ilija.mojrestoran.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * Created by Ilija on 1/2/2016.
@@ -14,16 +13,16 @@ public class Narudzbina {
     private Date datum;
     private Sto sto;
     private Korisnik korisnik;
-    private ArrayList<NaruceneStavke> naruceneStavkeArrayList;
+    private ArrayList<NaruceneStavke> nenaplaceneStavke;
     private ArrayList<Racun> racunArrayList;
 
-    public Narudzbina(String id, boolean naplacena, Date datum, Sto sto, Korisnik korisnik, ArrayList<NaruceneStavke> naruceneStavkeArrayList, ArrayList<Racun> racunArrayList) {
+    public Narudzbina(String id, boolean naplacena, Date datum, Sto sto, Korisnik korisnik, ArrayList<NaruceneStavke> nenaplaceneStavke, ArrayList<Racun> racunArrayList) {
         this.id = id;
         this.naplacena = naplacena;
         this.datum = datum;
         this.sto = sto;
         this.korisnik = korisnik;
-        this.naruceneStavkeArrayList = naruceneStavkeArrayList;
+        this.nenaplaceneStavke = nenaplaceneStavke;
         this.racunArrayList = racunArrayList;
     }
 
@@ -67,14 +66,14 @@ public class Narudzbina {
         this.korisnik = korisnik;
     }
 
-    public ArrayList<NaruceneStavke> getNaruceneStavkeArrayList() {
-        if (naruceneStavkeArrayList == null)
-            naruceneStavkeArrayList = new ArrayList<>();
-        return naruceneStavkeArrayList;
+    public ArrayList<NaruceneStavke> getNenaplaceneStavke() {
+        if (nenaplaceneStavke == null)
+            nenaplaceneStavke = new ArrayList<>();
+        return nenaplaceneStavke;
     }
 
-    public void setNaruceneStavkeArrayList(ArrayList<NaruceneStavke> naruceneStavkeArrayList) {
-        this.naruceneStavkeArrayList = naruceneStavkeArrayList;
+    public void setNenaplaceneStavke(ArrayList<NaruceneStavke> nenaplaceneStavke) {
+        this.nenaplaceneStavke = nenaplaceneStavke;
     }
 
     public ArrayList<Racun> getRacunArrayList() {

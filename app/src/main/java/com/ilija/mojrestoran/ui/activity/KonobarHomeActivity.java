@@ -56,8 +56,9 @@ public class KonobarHomeActivity extends BaseActivity implements DataChangeListe
 
         myNarudzbine.clear();
 
-        for (Narudzbina narudzbina : AppObject.getAppInstance().getMojRestoran().getNenaplaceneNarudzbine())
-            if (narudzbina.getKorisnik().getId().equals(AppObject.getAppInstance().getUlogovanKorisnik().getId()))
+        for (Narudzbina narudzbina : AppObject.getAppInstance().getMojRestoran().getNarudzbinaArrayList())
+            if (narudzbina.getKorisnik().getId().equals(AppObject.getAppInstance().getUlogovanKorisnik().getId())
+                    && !narudzbina.isNaplacena())
                 myNarudzbine.add(narudzbina);
 
         konobarNarudzbineListAdapter.notifyDataSetChanged();

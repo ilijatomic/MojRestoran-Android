@@ -1,7 +1,6 @@
 package com.ilija.mojrestoran.ui.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,17 +13,17 @@ import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.NaruceneStavke;
 import com.ilija.mojrestoran.model.Narudzbina;
-import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.ui.adapter.KonobarStavkeListAdapter;
 import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.ui.dialog.NaplatiDialog;
+import com.ilija.mojrestoran.ui.dialog.RacunChangeListener;
 import com.ilija.mojrestoran.util.Constants;
+import com.ilija.mojrestoran.util.ToastMessage;
 import com.ilija.mojrestoran.util.Utilities;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-public class KonobarNarudzbinaActivity extends BaseActivity implements DataChangeListener, View.OnClickListener {
+public class KonobarNarudzbinaActivity extends BaseActivity implements DataChangeListener, View.OnClickListener, RacunChangeListener {
 
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayList<NaruceneStavke> listStavke;
@@ -41,8 +40,8 @@ public class KonobarNarudzbinaActivity extends BaseActivity implements DataChang
         Intent intent = getIntent();
         final String narudzbinId = intent.getStringExtra(Constants.EXTRA_NARUDZBINA_ID);
         if (narudzbinId != null) {
-            narudzbina = AppObject.getAppInstance().getGetNenaplacenaById(narudzbinId);
-            listStavke = narudzbina.getNaruceneStavkeArrayList();
+            narudzbina = AppObject.getAppInstance().getNarudzbinaById(narudzbinId);
+            listStavke = narudzbina.getNenaplaceneStavke();
         }
 
         addToolbar(true);
@@ -55,7 +54,7 @@ public class KonobarNarudzbinaActivity extends BaseActivity implements DataChang
         autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.actv_stavka);
         autoCompleteTextView.setAdapter(arrayAdapter);
 
-        konobarStavkeListAdapter = new KonobarStavkeListAdapter(this, R.layout.list_item_konobar_narudzbina_detalji, listStavke,  this);
+        konobarStavkeListAdapter = new KonobarStavkeListAdapter(this, R.layout.list_item_konobar_narudzbina_detalji, listStavke, this);
         stavke = (ListView) findViewById(R.id.lv_narudzbina_stavka);
         stavke.setAdapter(konobarStavkeListAdapter);
 
@@ -90,5 +89,15 @@ public class KonobarNarudzbinaActivity extends BaseActivity implements DataChang
         NaplatiDialog naplatiDialog = new NaplatiDialog();
         naplatiDialog.setNaplatiDialog(narudzbina, this);
         naplatiDialog.show(getFragmentManager(), "NaplatiDialog");
+    }
+
+    @Override
+    public void naplaceno(boolean celaNarudzbina) {
+        if (celaNarudzbina) {
+            ToastMessage.showToast(this, "Narudzbina naplacena!");
+            finish();
+        } else {
+            konobarStavkeListAdapter.notifyDataSetChanged();
+        }
     }
 }

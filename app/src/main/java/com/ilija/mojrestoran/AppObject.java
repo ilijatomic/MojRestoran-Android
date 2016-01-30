@@ -185,23 +185,23 @@ public class AppObject extends Application {
 
         ArrayList<Sto> slobodni = new ArrayList<>();
 
-        if (mojRestoran.getNenaplaceneNarudzbine().size() > 0) {
-            for (Sto sto : mojRestoran.getStoArrayList())
-                for (Narudzbina narudzbina : mojRestoran.getNenaplaceneNarudzbine())
-                    if (!sto.getId().equals(narudzbina.getSto().getId()))
-                        slobodni.add(sto);
+        if (mojRestoran.getNarudzbinaArrayList().size() > 0) {
+            for (Sto sto : mojRestoran.getStoArrayList()) {
+                boolean slobodan = true;
+                for (Narudzbina narudzbina : mojRestoran.getNarudzbinaArrayList()) {
+                    if (sto.getId().equals(narudzbina.getSto().getId()) && !narudzbina.isNaplacena()) {
+                        slobodan = false;
+                        break;
+                    }
+                }
+                if (slobodan)
+                    slobodni.add(sto);
+            }
         } else {
             for (Sto sto : mojRestoran.getStoArrayList())
                 slobodni.add(sto);
         }
         return slobodni;
-    }
-
-    public Narudzbina getGetNenaplacenaById(String narudzbinId) {
-        for (Narudzbina narudzbina : mojRestoran.getNenaplaceneNarudzbine())
-            if (narudzbina.getId().equals(narudzbinId))
-                return narudzbina;
-        return null;
     }
 
     public Stavka getstavkaByName(String naziv) {
@@ -215,8 +215,14 @@ public class AppObject extends Application {
         for (Korisnik korisnik : getMojRestoran().getKorisnikArrayList())
             if (korisnik.getEmail().equals(email) && !korisnik.getId().equals(id))
                 return true;
-
         return false;
+    }
+
+    public Narudzbina getNarudzbinaById(String id) {
+        for (Narudzbina narudzbina : getMojRestoran().getNarudzbinaArrayList())
+            if (narudzbina.getId().equals(id))
+                return narudzbina;
+        return null;
     }
 
     /*public void updateRestoranBase() {

@@ -72,7 +72,7 @@ public class NewNarudzbinaDialogView implements DialogView {
 
         String idNarudzbine = UUID.randomUUID().toString();
         narudzbina = new Narudzbina(idNarudzbine, false, new Date(), selectedSto, AppObject.getAppInstance().getUlogovanKorisnik(), null, null);
-        AppObject.getAppInstance().getMojRestoran().getNenaplaceneNarudzbine().add(narudzbina);
+        AppObject.getAppInstance().getMojRestoran().getNarudzbinaArrayList().add(narudzbina);
         AppObject.getAppInstance().updateRestoranBase();
 
         return true;

@@ -27,7 +27,8 @@ public class DeleteDialog extends DialogFragment {
     private static DataChangeListener dataChangeListener;
     private static DialogDataType dialogDataType;
 
-    public DeleteDialog() {}
+    public DeleteDialog() {
+    }
 
     public void setDeleteDialog(String id, DataChangeListener dataChangeListener, DialogDataType dialogDataType) {
         this.id = id;
@@ -171,12 +172,18 @@ public class DeleteDialog extends DialogFragment {
     }
 
     private void deleteNarudzbina() {
-        for (Narudzbina narudzbina : AppObject.getAppInstance().getMojRestoran().getNenaplaceneNarudzbine())
+        for (Narudzbina narudzbina : AppObject.getAppInstance().getMojRestoran().getNarudzbinaArrayList())
             if (narudzbina.getId().equals(id)) {
-                AppObject.getAppInstance().getMojRestoran().getNenaplaceneNarudzbine().remove(narudzbina);
-                AppObject.getAppInstance().updateRestoranBase();
-                dataChangeListener.onDataChanged();
-                break;
+                if (narudzbina.getRacunArrayList().size() > 0) {
+                    narudzbina.setNaplacena(true);
+                    AppObject.getAppInstance().updateRestoranBase();
+                    break;
+                } else {
+                    AppObject.getAppInstance().getMojRestoran().getNarudzbinaArrayList().remove(narudzbina);
+                    AppObject.getAppInstance().updateRestoranBase();
+                    dataChangeListener.onDataChanged();
+                    break;
+                }
             }
     }
 }

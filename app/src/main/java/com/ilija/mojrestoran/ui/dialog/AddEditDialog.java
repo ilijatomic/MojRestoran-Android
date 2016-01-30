@@ -76,7 +76,7 @@ public class AddEditDialog extends DialogFragment {
                             if (dialogDataType == DialogDataType.NARUDZBINA) {
                                 Intent intent = new Intent(getActivity(), KonobarNarudzbinaActivity.class);
                                 intent.putExtra(Constants.EXTRA_NARUDZBINA_ID,
-                                        AppObject.getAppInstance().getMojRestoran().getNenaplaceneNarudzbine().get(AppObject.getAppInstance().getMojRestoran().getNenaplaceneNarudzbine().size() - 1).getId());
+                                        AppObject.getAppInstance().getMojRestoran().getNarudzbinaArrayList().get(AppObject.getAppInstance().getMojRestoran().getNarudzbinaArrayList().size() - 1).getId());
                                 getActivity().startActivity(intent);
                             }
                         }

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.NaruceneStavke;
 import com.ilija.mojrestoran.model.Narudzbina;
@@ -30,7 +31,7 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
     private KonobarStavkeListAdapter konobarStavkeListAdapter;
     private ListView stavke;
     private TextView tvUkupno;
-    private DataChangeListener dataChangeListener;
+    private RacunChangeListener racunChangeListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -48,7 +49,6 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
                 .setNegativeButton("Odustani", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 }).create();
 
@@ -60,14 +60,17 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
                     @Override
                     public void onClick(View v) {
                         String racunId = UUID.randomUUID().toString();
-                        if (Double.parseDouble(tvUkupno.getText().toString()) == izracunajUkupnuCenu(narudzbina.getNaruceneStavkeArrayList())) {
-                            Racun racun = new Racun(racunId, narudzbina, new Date(), Double.parseDouble(tvUkupno.getText().toString()), naruceneStavkes);
+                        if (Double.parseDouble(tvUkupno.getText().toString()) == izracunajUkupnuCenu(narudzbina.getNenaplaceneStavke())) {
+                            Racun racun = new Racun(racunId, new Date(), Double.parseDouble(tvUkupno.getText().toString()), naruceneStavkes);
                             narudzbina.setNaplacena(true);
-                            narudzbina.set
+                            narudzbina.getRacunArrayList().add(racun);
+                            narudzbina.setNenaplaceneStavke(null);
+                            AppObject.getAppInstance().updateRestoranBase();
+                            racunChangeListener.naplaceno(true);
                         } else {
 
+                            racunChangeListener.naplaceno(false);
                         }
-                        dataChangeListener.onDataChanged();
                     }
                 });
             }
@@ -86,14 +89,14 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
         return ukupno;
     }
 
-    public void setNaplatiDialog(Narudzbina selectedNarudzbina, DataChangeListener dataChangeListener) {
+    public void setNaplatiDialog(Narudzbina selectedNarudzbina, RacunChangeListener racunChangeListener) {
         this.narudzbina = selectedNarudzbina;
         this.naruceneStavkes = new ArrayList<>();
-        for (NaruceneStavke naruceneStavke : selectedNarudzbina.getNaruceneStavkeArrayList()) {
+        for (NaruceneStavke naruceneStavke : selectedNarudzbina.getNenaplaceneStavke()) {
             NaruceneStavke newNarucenaStavka = new NaruceneStavke(naruceneStavke.getStavka(), naruceneStavke.getKolicina());
             naruceneStavkes.add(newNarucenaStavka);
         }
-        this.dataChangeListener = dataChangeListener;
+        this.racunChangeListener = racunChangeListener;
     }
 
     @Override

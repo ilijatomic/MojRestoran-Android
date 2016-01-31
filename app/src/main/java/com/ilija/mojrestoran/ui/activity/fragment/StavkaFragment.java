@@ -205,9 +205,11 @@ public class StavkaFragment extends Fragment implements DataChangeListener, View
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             Utilities.populateSpinnerStrings(stringsKategorija, AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList(), "kategorija");
-            arrayAdapterKategorija.notifyDataSetChanged();
+            if (arrayAdapterKategorija != null)
+                arrayAdapterKategorija.notifyDataSetChanged();
             Utilities.populateSpinnerStrings(stringsPodkategorija, AppObject.getAppInstance().getMojRestoran().getPodkategorijaArrayList(), "podkategorija");
-            arrayAdapterPodkategorija.notifyDataSetChanged();
+            if (arrayAdapterPodkategorija != null)
+                arrayAdapterPodkategorija.notifyDataSetChanged();
         }
     }
 

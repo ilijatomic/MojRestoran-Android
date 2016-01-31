@@ -177,6 +177,22 @@ public class AppObject extends Application {
                 podkategorijas.add(podkategorija.getNaziv());
     }
 
+    public void populateStavkeOfPodkategorija(Podkategorija podkategorija, ArrayList<String> stavkes) {
+        stavkes.clear();
+        stavkes.add("stavka");
+        for (Stavka stavka : AppObject.getAppInstance().getMojRestoran().getStavkaArrayList())
+            if (stavka.getPodkategorija().getId().equals(podkategorija.getId()))
+                stavkes.add(stavka.getNaziv());
+    }
+
+    public void populateStavkeOfKategorija(Kategorija kategorija, ArrayList<String> stavkes) {
+        stavkes.clear();
+        stavkes.add("stavka");
+        for (Stavka stavka : AppObject.getAppInstance().getMojRestoran().getStavkaArrayList())
+            if (stavka.getPodkategorija().getKategorija().getId().equals(kategorija.getId()))
+                stavkes.add(stavka.getNaziv());
+    }
+
     public boolean checkIfLoggedUser(String id) {
         return ulogovanKorisnik.getId().equals(id);
     }

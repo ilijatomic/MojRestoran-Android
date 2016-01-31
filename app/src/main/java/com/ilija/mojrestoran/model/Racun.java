@@ -45,6 +45,8 @@ public class Racun {
     }
 
     public ArrayList<NaruceneStavke> getNaplaceneStavke() {
+        if (naplaceneStavke == null)
+            naplaceneStavke = new ArrayList<>();
         return naplaceneStavke;
     }
 

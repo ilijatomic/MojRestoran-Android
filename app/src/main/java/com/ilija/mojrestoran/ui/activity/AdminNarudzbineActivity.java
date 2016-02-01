@@ -1,10 +1,12 @@
 package com.ilija.mojrestoran.ui.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -341,6 +343,11 @@ public class AdminNarudzbineActivity extends BaseActivity implements View.OnClic
             ponisti.setVisibility(View.GONE);
             pretraga.setVisibility(View.GONE);
             ivToggleSearch.setRotation(0);
+            View view = this.getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         } else {
             llSearch.setVisibility(View.VISIBLE);
             ime.setVisibility(View.VISIBLE);

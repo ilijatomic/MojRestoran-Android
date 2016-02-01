@@ -166,8 +166,7 @@
         android:id="@+id/nar_narudzbine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dp">
-
-    </ListView>
+        android:divider="@android:color/background_light"
+        android:dividerHeight="1dp" />
 
 </LinearLayout>

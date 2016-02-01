@@ -26,6 +26,8 @@ public class MojRestoran {
     }
 
     public ArrayList<Korisnik> getKorisnikArrayList() {
+        if (korisnikArrayList == null)
+            korisnikArrayList = new ArrayList<>();
         return korisnikArrayList;
     }
 

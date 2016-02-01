@@ -66,11 +66,19 @@ public class SplashActivity extends BaseActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    BufferedReader bufferedReader = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory() + File.separator + Constants.RESTORAN_JSON));
-                    Gson gson = new Gson();
-                    MojRestoran mojRestoran = gson.fromJson(bufferedReader, MojRestoran.class);
-                    if (mojRestoran != null)
+                    File file = new File(Environment.getExternalStorageDirectory()  + File.separator + Constants.RESTORAN_JSON);
+                    if (!file.exists()) {
+                        MojRestoran mojRestoran = new MojRestoran(null, null, null, null, null, null);
+                        mojRestoran.getKorisnikArrayList().add(new Korisnik("007", "Ilija", "Tomic", "", "ilija@email.com", "qwe", "admin"));
                         AppObject.getAppInstance().setMojRestoran(mojRestoran);
+                        AppObject.getAppInstance().updateRestoranBase();
+                    } else {
+                        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+                        Gson gson = new Gson();
+                        MojRestoran mojRestoran = gson.fromJson(bufferedReader, MojRestoran.class);
+                        if (mojRestoran != null)
+                            AppObject.getAppInstance().setMojRestoran(mojRestoran);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

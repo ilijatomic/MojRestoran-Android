@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
+import com.firebase.client.Firebase;
 import com.google.gson.Gson;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
@@ -44,6 +45,7 @@ public class AppObject extends Application {
         super.onCreate();
         if (appObject == null)
             appObject = (AppObject) getApplicationContext();
+        Firebase.setAndroidContext(appObject.getApplicationContext());
     }
 
     public static AppObject getAppInstance() {

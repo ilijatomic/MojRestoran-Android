@@ -4,9 +4,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.gson.Gson;
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
@@ -24,6 +31,8 @@ import java.io.FileReader;
 
 public class SplashActivity extends BaseActivity {
 
+    Firebase mRef;
+
     private static final String TAG = SplashActivity.class.getSimpleName();
 
     @Override
@@ -31,7 +40,9 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        downloadDB();
+//        downloadDB();
+
+        getFirebase();
 
     }
 
@@ -92,6 +103,31 @@ public class SplashActivity extends BaseActivity {
             }
         }.execute();
 
+    }
+
+    private void getFirebase() {
+        final MojRestoran[] mojRestoran = new MojRestoran[1];
+        mRef = new Firebase("https://project-3585542348729097062.firebaseio.com/");
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mojRestoran[0] = dataSnapshot.getValue(MojRestoran.class);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mojRestoran[0].getKorisnikArrayList().get(0).setBrTel("064/123");
+                mRef.setValue(mojRestoran[0]);
+            }
+        }, 5000);
     }
 
     /*private void downloadDB() {

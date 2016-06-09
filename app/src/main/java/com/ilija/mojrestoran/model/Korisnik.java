@@ -13,6 +13,9 @@ public class Korisnik {
     private String password;
     private String tip;
 
+    public Korisnik() {
+    }
+
     public Korisnik(String id, String ime, String prezime, String brTel, String email, String password, String tip) {
         this.id = id;
         this.ime = ime;

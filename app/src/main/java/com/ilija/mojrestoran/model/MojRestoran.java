@@ -14,6 +14,8 @@ public class MojRestoran {
     private ArrayList<Sto> stoArrayList;
     private ArrayList<Narudzbina> narudzbinaArrayList;
 
+    public MojRestoran() {};
+
     public MojRestoran(ArrayList<Korisnik> korisnikArrayList, ArrayList<Kategorija> kategorijaArrayList,
                        ArrayList<Podkategorija> podkategorijaArrayList, ArrayList<Stavka> stavkaArrayList,
                        ArrayList<Sto> stoArrayList, ArrayList<Narudzbina> narudzbinaArrayList) {

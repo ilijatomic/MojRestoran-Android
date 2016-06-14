@@ -12,8 +12,6 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.gson.Gson;
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;

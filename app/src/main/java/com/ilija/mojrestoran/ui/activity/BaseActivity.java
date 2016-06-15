@@ -10,7 +10,6 @@ import android.view.MenuItem;
 
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
-import com.ilija.mojrestoran.ui.SplashActivity;
 import com.ilija.mojrestoran.util.Constants;
 
 public class BaseActivity extends AppCompatActivity {
@@ -41,7 +40,7 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             case R.id.profile_log_out:
                 sharedPreferences.edit().putString(Constants.PREF_USER_LOGIN, null).commit();
-                intent = new Intent(AppObject.getAppInstance().getApplicationContext(), SplashActivity.class);
+                intent = new Intent(AppObject.getAppInstance().getApplicationContext(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 return true;

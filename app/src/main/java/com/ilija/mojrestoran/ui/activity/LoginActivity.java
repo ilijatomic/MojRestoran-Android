@@ -48,6 +48,29 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
+        checkLogin();
+    }
+
+    private void checkLogin() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String userLogin = sharedPreferences.getString(Constants.PREF_USER_LOGIN, null);
+        Intent intent = null;
+        if (userLogin != null ) {
+
+            for (Korisnik korisnik : AppObject.getAppInstance().getMojRestoran().getKorisnikArrayList()) {
+                if (korisnik.getEmail().equals(userLogin)) {
+                    AppObject.getAppInstance().setUlogovanKorisnik(korisnik);
+                    if (AppObject.getAppInstance().getUlogovanKorisnik().getTip().equals(Constants.USER_LOGIN_ADMIN))
+                        intent = new Intent(this, AdminHomeActivity.class);
+                    else if (AppObject.getAppInstance().getUlogovanKorisnik().getTip().equals(Constants.USER_LOGIN_KONOBAR))
+                        intent = new Intent(this, KonobarHomeActivity.class);
+                    break;
+                }
+            }
+
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void loginSuccess(Korisnik korisnik) {

@@ -5,7 +5,10 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.gson.Gson;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
@@ -37,6 +40,7 @@ public class AppObject extends Application {
 
     private static AppObject appObject;
 
+    Firebase mRef;
     private MojRestoran mojRestoran;
     private Korisnik ulogovanKorisnik;
 
@@ -46,6 +50,23 @@ public class AppObject extends Application {
         if (appObject == null)
             appObject = (AppObject) getApplicationContext();
         Firebase.setAndroidContext(appObject.getApplicationContext());
+
+        getFirebase();
+    }
+
+    private void getFirebase() {
+        mRef = new Firebase("https://project-3585542348729097062.firebaseio.com/");
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mojRestoran = dataSnapshot.getValue(MojRestoran.class);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     public static AppObject getAppInstance() {
@@ -81,7 +102,9 @@ public class AppObject extends Application {
 
     public void updateRestoranBase() {
 
-        new AsyncTask<Void, Void, Void>() {
+        mRef.setValue(mojRestoran);
+
+        /*new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
@@ -97,7 +120,7 @@ public class AppObject extends Application {
                 }
                 return null;
             }
-        }.execute();
+        }.execute();*/
 
     }
 
@@ -242,51 +265,5 @@ public class AppObject extends Application {
                 return narudzbina;
         return null;
     }
-
-    /*public void updateRestoranBase() {
-
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    FileWriter fileWriter = new FileWriter(Environment.getExternalStorageDirectory() + File.separator + Constants.RESTORAN_JSON, false);
-                    Gson gson = new Gson();
-                    if (mojRestoran != null) {
-                        String json = gson.toJson(mojRestoran);
-                        fileWriter.write(json);
-                        fileWriter.close();
-                    }
-
-                    File file = new File(Environment.getExternalStorageDirectory()  + File.separator + Constants.RESTORAN_JSON);
-                    if (file.exists()) {
-                        URL url = new URL(Constants.URL_UPLOAD);
-                        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                        httpURLConnection.setUseCaches(false);
-                        httpURLConnection.setDoOutput(true);
-                        httpURLConnection.setChunkedStreamingMode(0);
-                        httpURLConnection.setRequestMethod("POST");
-                        httpURLConnection.setRequestProperty("Cache-Control", "no-cache");
-                        httpURLConnection.setRequestProperty("Accept", "application/json");
-                        httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-
-                        String json = gson.toJson(mojRestoran);
-                        String payload = "{\"jsonrpc\":\"2.0\",\"method\":\"changeDetail\",\"params\":[{\"id\":11376}],\"id\":2}";
-                        DataOutputStream outputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-                        outputStream.writeBytes(payload);
-                        outputStream.writeBytes(json);
-                        outputStream.flush();
-                        outputStream.close();
-                        Log.i(TAG, httpURLConnection.getResponseMessage() + httpURLConnection.getResponseCode());
-                        httpURLConnection.disconnect();
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        }.execute();
-
-    }*/
 
 }

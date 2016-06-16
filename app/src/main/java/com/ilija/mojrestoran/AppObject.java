@@ -10,6 +10,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.gson.Gson;
+import com.ilija.mojrestoran.event.DatabaseDownloaded;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.MojRestoran;
@@ -18,6 +19,8 @@ import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.model.Sto;
 import com.ilija.mojrestoran.util.Constants;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
@@ -60,6 +63,7 @@ public class AppObject extends Application {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mojRestoran = dataSnapshot.getValue(MojRestoran.class);
+                EventBus.getDefault().postSticky(new DatabaseDownloaded());
             }
 
             @Override

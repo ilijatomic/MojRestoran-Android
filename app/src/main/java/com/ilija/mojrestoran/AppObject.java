@@ -93,17 +93,6 @@ public class AppObject extends Application {
         this.ulogovanKorisnik = ulogovanKorisnik;
     }
 
-    public void izmeniKorisnik() {
-        for (Korisnik korisnik : mojRestoran.getKorisnikArrayList()) {
-            if (korisnik.getEmail().equals(ulogovanKorisnik.getEmail())) {
-                mojRestoran.getKorisnikArrayList().remove(korisnik);
-                mojRestoran.getKorisnikArrayList().add(ulogovanKorisnik);
-                updateRestoranBase();
-                break;
-            }
-        }
-    }
-
     public void updateRestoranBase() {
 
         mRef.setValue(mojRestoran);

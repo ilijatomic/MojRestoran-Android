@@ -78,7 +78,7 @@ public class ProfilDetaljiActivity extends BaseActivity {
         AppObject.getAppInstance().getUlogovanKorisnik().setPrezime(etPrezime.getText().toString());
         AppObject.getAppInstance().getUlogovanKorisnik().setBrTel(etBrojTelefona.getText().toString());
 
-        AppObject.getAppInstance().izmeniKorisnik();
+        AppObject.getAppInstance().updateRestoranBase();
 
         ToastMessage.showToast(AppObject.getAppInstance().getApplicationContext(), "Podaci uspesno promenjeni");
         finish();

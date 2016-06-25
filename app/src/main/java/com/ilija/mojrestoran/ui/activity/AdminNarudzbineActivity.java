@@ -2,7 +2,6 @@ package com.ilija.mojrestoran.ui.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;

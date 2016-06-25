@@ -1,7 +1,6 @@
 package com.ilija.mojrestoran.ui.activity.fragment;
 
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;

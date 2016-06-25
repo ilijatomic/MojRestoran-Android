@@ -1,6 +1,5 @@
 package com.ilija.mojrestoran.ui.adapter;
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
@@ -20,7 +19,6 @@ import com.ilija.mojrestoran.ui.dialog.DialogDataType;
 import com.ilija.mojrestoran.util.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ilija.tomic on 1/28/2016.

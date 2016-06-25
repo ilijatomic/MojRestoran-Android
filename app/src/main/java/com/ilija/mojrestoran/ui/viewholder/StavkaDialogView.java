@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.ilija.mojrestoran.AppObject;
 import com.ilija.mojrestoran.R;
-import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.util.ToastMessage;

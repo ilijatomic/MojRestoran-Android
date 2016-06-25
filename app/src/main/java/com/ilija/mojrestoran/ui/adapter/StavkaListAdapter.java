@@ -1,6 +1,5 @@
 package com.ilija.mojrestoran.ui.adapter;
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;

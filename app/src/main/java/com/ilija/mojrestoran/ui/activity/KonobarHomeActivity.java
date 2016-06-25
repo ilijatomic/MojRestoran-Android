@@ -1,7 +1,5 @@
 package com.ilija.mojrestoran.ui.activity;
 
-import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
@@ -14,7 +12,6 @@ import com.ilija.mojrestoran.ui.adapter.KonobarNarudzbineListAdapter;
 import com.ilija.mojrestoran.ui.dialog.AddEditDialog;
 import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.ui.dialog.DialogDataType;
-import com.ilija.mojrestoran.util.Constants;
 
 import java.util.ArrayList;
 

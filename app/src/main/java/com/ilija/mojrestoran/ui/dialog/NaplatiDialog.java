@@ -15,7 +15,6 @@ import com.ilija.mojrestoran.R;
 import com.ilija.mojrestoran.model.NaruceneStavke;
 import com.ilija.mojrestoran.model.Narudzbina;
 import com.ilija.mojrestoran.model.Racun;
-import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.ui.adapter.KonobarStavkeListAdapter;
 
 import java.util.ArrayList;

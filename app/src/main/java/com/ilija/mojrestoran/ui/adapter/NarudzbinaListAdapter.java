@@ -13,13 +13,10 @@ import com.ilija.mojrestoran.model.NaruceneStavke;
 import com.ilija.mojrestoran.model.Narudzbina;
 import com.ilija.mojrestoran.model.Racun;
 import com.ilija.mojrestoran.ui.activity.AdminNarudzbinaDetaljiActivity;
-import com.ilija.mojrestoran.ui.activity.KonobarNarudzbinaActivity;
-import com.ilija.mojrestoran.ui.dialog.DataChangeListener;
 import com.ilija.mojrestoran.util.Constants;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**

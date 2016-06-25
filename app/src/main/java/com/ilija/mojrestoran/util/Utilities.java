@@ -2,10 +2,6 @@ package com.ilija.mojrestoran.util;
 
 import android.widget.EditText;
 
-import com.ilija.mojrestoran.model.Kategorija;
-import com.ilija.mojrestoran.model.Podkategorija;
-import com.ilija.mojrestoran.model.Stavka;
-
 import java.util.ArrayList;
 
 /**

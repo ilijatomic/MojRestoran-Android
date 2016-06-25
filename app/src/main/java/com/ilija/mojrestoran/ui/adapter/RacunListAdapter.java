@@ -8,13 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ilija.mojrestoran.R;
-import com.ilija.mojrestoran.model.NaruceneStavke;
-import com.ilija.mojrestoran.model.Racun;
 import com.ilija.mojrestoran.util.NarudzbinaDetalji;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**

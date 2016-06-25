@@ -1,15 +1,11 @@
 package com.ilija.mojrestoran;
 
 import android.app.Application;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.util.Log;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.google.gson.Gson;
 import com.ilija.mojrestoran.event.DatabaseDownloaded;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
@@ -18,20 +14,9 @@ import com.ilija.mojrestoran.model.Narudzbina;
 import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.model.Stavka;
 import com.ilija.mojrestoran.model.Sto;
-import com.ilija.mojrestoran.util.Constants;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**

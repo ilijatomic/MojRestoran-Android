@@ -1,7 +1,5 @@
 package com.ilija.mojrestoran.model;
 
-import java.util.ArrayList;
-
 /**
  * Created by Ilija on 1/2/2016.
  */

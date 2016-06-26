@@ -13,6 +13,9 @@ public class Racun {
     private double cena;
     private ArrayList<NaruceneStavke> naplaceneStavke;
 
+    public Racun() {
+    }
+
     public Racun(String id, Date datum, double cena, ArrayList<NaruceneStavke> naplaceneStavke) {
         this.id = id;
         this.datum = datum;

@@ -8,6 +8,9 @@ public class Sto {
     private String id;
     private int broj;
 
+    public Sto() {
+    }
+
     public Sto(String id, int broj) {
         this.id = id;
         this.broj = broj;

@@ -8,6 +8,9 @@ public class Kategorija {
     private String id;
     private String naziv;
 
+    public Kategorija() {
+    }
+
     public Kategorija(String id, String naziv) {
         this.id = id;
         this.naziv = naziv;

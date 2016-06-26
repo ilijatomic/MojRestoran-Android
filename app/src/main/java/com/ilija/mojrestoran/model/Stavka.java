@@ -10,6 +10,9 @@ public class Stavka {
     private double cena;
     private Podkategorija podkategorija;
 
+    public Stavka() {
+    }
+
     public Stavka(String id, String naziv, double cena, Podkategorija podkategorija) {
         this.id = id;
         this.naziv = naziv;

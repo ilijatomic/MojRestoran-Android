@@ -8,6 +8,9 @@ public class NaruceneStavke {
     private Stavka stavka;
     private Integer kolicina;
 
+    public NaruceneStavke() {
+    }
+
     public NaruceneStavke(Stavka stavka, Integer kolicina) {
         this.stavka = stavka;
         this.kolicina = kolicina;

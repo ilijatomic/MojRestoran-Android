@@ -16,6 +16,9 @@ public class Narudzbina {
     private ArrayList<NaruceneStavke> nenaplaceneStavke;
     private ArrayList<Racun> racunArrayList;
 
+    public Narudzbina() {
+    }
+
     public Narudzbina(String id, boolean naplacena, Date datum, Sto sto, Korisnik korisnik, ArrayList<NaruceneStavke> nenaplaceneStavke, ArrayList<Racun> racunArrayList) {
         this.id = id;
         this.naplacena = naplacena;

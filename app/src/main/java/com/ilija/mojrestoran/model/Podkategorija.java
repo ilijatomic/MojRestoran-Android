@@ -9,6 +9,9 @@ public class Podkategorija {
     private String naziv;
     private Kategorija kategorija;
 
+    public Podkategorija() {
+    }
+
     public Podkategorija(String id, String naziv, Kategorija kategorija) {
         this.id = id;
         this.naziv = naziv;

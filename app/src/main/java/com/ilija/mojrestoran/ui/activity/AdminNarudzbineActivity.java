@@ -48,9 +48,6 @@ public class AdminNarudzbineActivity extends BaseActivity implements View.OnClic
     private Date dateFrom;
     private Date dateTo;
 
-    private Spinner spTip;
-    private String tip;
-
     private Spinner spKategorija;
     private Kategorija selKategorija;
     private ArrayAdapter<String> kategorijaAdapter;
@@ -100,22 +97,6 @@ public class AdminNarudzbineActivity extends BaseActivity implements View.OnClic
         ime = (EditText) findViewById(R.id.nar_search_ime);
         prezime = (EditText) findViewById(R.id.nar_search_prezime);
         email = (EditText) findViewById(R.id.nar_search_email);
-        spTip = (Spinner) findViewById(R.id.nar_search_tip);
-        spTip.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    tip = "";
-                } else {
-                    tip = spTip.getItemAtPosition(position).toString();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
 
         spKategorija = (Spinner) findViewById(R.id.nar_search_kategorija);
         Utilities.populateSpinnerStrings(kategorijaStrings, AppObject.getAppInstance().getMojRestoran().getKategorijaArrayList(), "kategorija");
@@ -332,7 +313,6 @@ public class AdminNarudzbineActivity extends BaseActivity implements View.OnClic
             ime.setVisibility(View.GONE);
             prezime.setVisibility(View.GONE);
             email.setVisibility(View.GONE);
-            spTip.setVisibility(View.GONE);
             spKategorija.setVisibility(View.GONE);
             spPodkategorija.setVisibility(View.GONE);
             spStavka.setVisibility(View.GONE);
@@ -352,7 +332,6 @@ public class AdminNarudzbineActivity extends BaseActivity implements View.OnClic
             ime.setVisibility(View.VISIBLE);
             prezime.setVisibility(View.VISIBLE);
             email.setVisibility(View.VISIBLE);
-            spTip.setVisibility(View.VISIBLE);
             spKategorija.setVisibility(View.VISIBLE);
             spPodkategorija.setVisibility(View.VISIBLE);
             spStavka.setVisibility(View.VISIBLE);
@@ -371,7 +350,6 @@ public class AdminNarudzbineActivity extends BaseActivity implements View.OnClic
         ime.setText("");
         prezime.setText("");
         email.setText("");
-        spTip.setSelection(0);
         spKategorija.setSelection(0);
         spPodkategorija.setSelection(0);
         spStavka.setSelection(0);
@@ -397,8 +375,6 @@ public class AdminNarudzbineActivity extends BaseActivity implements View.OnClic
             if (!prezimeSearch.isEmpty() && !narudzbina.getKorisnik().getPrezime().startsWith(prezimeSearch))
                 continue;
             if (!emailSearch.isEmpty() && !narudzbina.getKorisnik().getEmail().startsWith(emailSearch))
-                continue;
-            if (!tip.isEmpty() && !narudzbina.getKorisnik().getTip().equals(tip))
                 continue;
             if (selKategorija != null && !checkNarudzbinaKategorija(narudzbina))
                 continue;

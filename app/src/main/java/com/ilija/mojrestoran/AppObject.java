@@ -10,6 +10,7 @@ import com.ilija.mojrestoran.event.DatabaseDownloaded;
 import com.ilija.mojrestoran.model.Kategorija;
 import com.ilija.mojrestoran.model.Korisnik;
 import com.ilija.mojrestoran.model.MojRestoran;
+import com.ilija.mojrestoran.model.NaruceneStavke;
 import com.ilija.mojrestoran.model.Narudzbina;
 import com.ilija.mojrestoran.model.Podkategorija;
 import com.ilija.mojrestoran.model.Stavka;
@@ -100,6 +101,11 @@ public class AppObject extends Application {
             }
         }.execute();*/
 
+    }
+
+    public void updateNarudzbina(String id, ArrayList<NaruceneStavke> naruceneStavkes) {
+        getNarudzbinaById(id).setNenaplaceneStavke(naruceneStavkes);
+        updateRestoranBase();
     }
 
     public Korisnik getKorisnikById(String idKorisnik) {

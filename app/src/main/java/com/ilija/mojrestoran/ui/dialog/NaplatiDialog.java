@@ -19,7 +19,6 @@ import com.ilija.mojrestoran.ui.adapter.KonobarStavkeListAdapter;
 import com.ilija.mojrestoran.util.ToastMessage;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -28,8 +27,8 @@ import java.util.UUID;
 public class NaplatiDialog extends DialogFragment implements DataChangeListener {
 
     private Narudzbina narudzbina;
-    private ArrayList<NaruceneStavke> naruceneStavkes;
     private KonobarStavkeListAdapter konobarStavkeListAdapter;
+    private ArrayList<NaruceneStavke> racunStavke;
     private ListView stavke;
     private TextView tvUkupno;
     private RacunChangeListener racunChangeListener;
@@ -38,10 +37,10 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_naplati, null);
         stavke = (ListView) view.findViewById(R.id.stavke_naplati);
-        konobarStavkeListAdapter = new KonobarStavkeListAdapter(getActivity(), R.layout.list_item_konobar_naplati, naruceneStavkes, this, narudzbina.getId());
+        konobarStavkeListAdapter = new KonobarStavkeListAdapter(getActivity(), R.layout.list_item_konobar_naplati, racunStavke, this, narudzbina.getId(), true);
         stavke.setAdapter(konobarStavkeListAdapter);
         tvUkupno = (TextView) view.findViewById(R.id.tv_ukupno_naplati);
-        tvUkupno.setText(String.valueOf(izracunajUkupnuCenu(naruceneStavkes)));
+        tvUkupno.setText(String.valueOf(izracunajUkupnuCenu(narudzbina.getNenaplaceneStavke())));
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setView(view)
@@ -65,16 +64,17 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
                             getDialog().dismiss();
                             return;
                         }
+                        Narudzbina temp = AppObject.getAppInstance().getNarudzbinaById(narudzbina.getId());
                         String racunId = UUID.randomUUID().toString();
                         if (Double.parseDouble(tvUkupno.getText().toString()) == izracunajUkupnuCenu(narudzbina.getNenaplaceneStavke())) {
-                            Racun racun = new Racun(racunId, System.currentTimeMillis(), Double.parseDouble(tvUkupno.getText().toString()), naruceneStavkes);
-                            narudzbina.setNaplacena(true);
-                            narudzbina.getRacunArrayList().add(racun);
-                            narudzbina.setNenaplaceneStavke(null);
+                            Racun racun = new Racun(racunId, System.currentTimeMillis(), Double.parseDouble(tvUkupno.getText().toString()), racunStavke);
+                            temp.setNaplacena(true);
+                            temp.getRacunArrayList().add(racun);
+                            temp.setNenaplaceneStavke(null);
                             AppObject.getAppInstance().updateRestoranBase();
                             racunChangeListener.naplaceno(true);
                         } else {
-                            for (NaruceneStavke naruceneStavke : narudzbina.getNenaplaceneStavke()) {
+                            for (NaruceneStavke naruceneStavke : temp.getNenaplaceneStavke()) {
                                 NaruceneStavke naplatiStavku = getStavkaNaplata(naruceneStavke);
                                 if (naplatiStavku != null) {
                                     Integer nenaplacena = naruceneStavke.getKolicina();
@@ -82,8 +82,8 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
                                     naruceneStavke.setKolicina(nenaplacena - naplacena);
                                 }
                             }
-                            Racun racun = new Racun(racunId, System.currentTimeMillis(), izracunajUkupnuCenu(naruceneStavkes), naruceneStavkes);
-                            narudzbina.getRacunArrayList().add(racun);
+                            Racun racun = new Racun(racunId, System.currentTimeMillis(), izracunajUkupnuCenu(racunStavke), racunStavke);
+                            temp.getRacunArrayList().add(racun);
                             AppObject.getAppInstance().updateRestoranBase();
                             racunChangeListener.naplaceno(false);
                             getDialog().dismiss();
@@ -97,7 +97,7 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
     }
 
     private NaruceneStavke getStavkaNaplata(NaruceneStavke stavka) {
-        for (NaruceneStavke naruceneStavke : naruceneStavkes)
+        for (NaruceneStavke naruceneStavke : racunStavke)
             if (naruceneStavke.getStavka().getId().equals(stavka.getStavka().getId()))
                 return naruceneStavke;
         return null;
@@ -115,10 +115,10 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
 
     public void setNaplatiDialog(Narudzbina selectedNarudzbina, RacunChangeListener racunChangeListener) {
         this.narudzbina = selectedNarudzbina;
-        this.naruceneStavkes = new ArrayList<>();
-        for (NaruceneStavke naruceneStavke : selectedNarudzbina.getNenaplaceneStavke()) {
-            NaruceneStavke newNarucenaStavka = new NaruceneStavke(naruceneStavke.getStavka(), naruceneStavke.getKolicina());
-            naruceneStavkes.add(newNarucenaStavka);
+        racunStavke = new ArrayList<>();
+        for (NaruceneStavke temp : this.narudzbina.getNenaplaceneStavke()) {
+            NaruceneStavke nova = new NaruceneStavke(temp.getStavka(), temp.getKolicina());
+            racunStavke.add(nova);
         }
         this.racunChangeListener = racunChangeListener;
     }
@@ -126,6 +126,6 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
     @Override
     public void onDataChanged() {
         konobarStavkeListAdapter.notifyDataSetChanged();
-        tvUkupno.setText(String.valueOf(izracunajUkupnuCenu(naruceneStavkes)));
+        tvUkupno.setText(String.valueOf(izracunajUkupnuCenu(racunStavke)));
     }
 }

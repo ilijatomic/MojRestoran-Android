@@ -29,6 +29,6 @@ public class NaruceneStavke {
     }
 
     public void setKolicina(Integer kolicina) {
-        this.kolicina += kolicina;
+        this.kolicina = kolicina;
     }
 }

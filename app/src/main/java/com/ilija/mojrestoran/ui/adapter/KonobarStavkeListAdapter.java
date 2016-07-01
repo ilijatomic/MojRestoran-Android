@@ -22,23 +22,24 @@ public class KonobarStavkeListAdapter extends ArrayAdapter<NaruceneStavke> {
 
     private Context context;
     private DataChangeListener dataChangeListener;
-    private ArrayList<NaruceneStavke> naruceneStavkes;
+    private ArrayList<NaruceneStavke> stavke;
     private int viewLayout;
     private String id;
+    private boolean naplata;
 
-    public KonobarStavkeListAdapter(Context context, int resource, ArrayList<NaruceneStavke> objects, DataChangeListener dataChangeListener, String id) {
+    public KonobarStavkeListAdapter(Context context, int resource, ArrayList<NaruceneStavke> objects, DataChangeListener dataChangeListener, String id, boolean naplata) {
         super(context, resource, objects);
         this.dataChangeListener = dataChangeListener;
-        this.naruceneStavkes = objects;
         this.viewLayout = resource;
+        this.stavke = objects;
         this.id = id;
+        this.naplata = naplata;
     }
 
     @Override
     public NaruceneStavke getItem(int position) {
-        return naruceneStavkes.get(position);
+        return stavke.get(position);
     }
-
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -56,8 +57,9 @@ public class KonobarStavkeListAdapter extends ArrayAdapter<NaruceneStavke> {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).setKolicina(+1);
-                AppObject.getAppInstance().updateRestoranBase();
+                getItem(position).setKolicina(getItem(position).getKolicina() + 1);
+                if (!naplata)
+                    AppObject.getAppInstance().updateNarudzbina(id, stavke);
                 dataChangeListener.onDataChanged();
             }
         });
@@ -66,25 +68,25 @@ public class KonobarStavkeListAdapter extends ArrayAdapter<NaruceneStavke> {
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).getKolicina() == 1) {
-                    AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().remove(position);
+                if (getItem(position).getKolicina() == 1) {
+                    stavke.remove(position);
                 } else {
-                    AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).setKolicina(-1);                }
-                AppObject.getAppInstance().updateRestoranBase();
+                    getItem(position).setKolicina(getItem(position).getKolicina() - 1);
+                }
+                if (!naplata)
+                    AppObject.getAppInstance().updateNarudzbina(id, stavke);
                 dataChangeListener.onDataChanged();
             }
         });
 
         TextView naziv = (TextView) view.findViewById(R.id.tv_narudzbina_stavka);
-        naziv.setText(AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).getStavka().getNaziv());
+        naziv.setText(getItem(position).getStavka().getNaziv());
         if (viewLayout == R.layout.list_item_konobar_narudzbina_detalji) {
             TextView cena = (TextView) view.findViewById(R.id.tv_narudzbina_stavka_cena);
-            cena.setText(String.valueOf(AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).getStavka().getCena()
-                    * AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).getKolicina()));
+            cena.setText(String.valueOf(getItem(position).getStavka().getCena() * getItem(position).getKolicina()));
         }
         TextView kolicina = (TextView) view.findViewById(R.id.tv_narudzbina_stavka_kolicina);
-        kolicina.setText("" + AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).getKolicina());
-
+        kolicina.setText("" + getItem(position).getKolicina());
         return view;
     }
 }

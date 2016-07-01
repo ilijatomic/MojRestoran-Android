@@ -24,12 +24,14 @@ public class KonobarStavkeListAdapter extends ArrayAdapter<NaruceneStavke> {
     private DataChangeListener dataChangeListener;
     private ArrayList<NaruceneStavke> naruceneStavkes;
     private int viewLayout;
+    private String id;
 
-    public KonobarStavkeListAdapter(Context context, int resource, ArrayList<NaruceneStavke> objects, DataChangeListener dataChangeListener) {
+    public KonobarStavkeListAdapter(Context context, int resource, ArrayList<NaruceneStavke> objects, DataChangeListener dataChangeListener, String id) {
         super(context, resource, objects);
         this.dataChangeListener = dataChangeListener;
         this.naruceneStavkes = objects;
         this.viewLayout = resource;
+        this.id = id;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class KonobarStavkeListAdapter extends ArrayAdapter<NaruceneStavke> {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getItem(position).setKolicina(getItem(position).getKolicina() + 1);
+                AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).setKolicina(+1);
                 AppObject.getAppInstance().updateRestoranBase();
                 dataChangeListener.onDataChanged();
             }
@@ -64,24 +66,24 @@ public class KonobarStavkeListAdapter extends ArrayAdapter<NaruceneStavke> {
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getItem(position).getKolicina() == 1) {
-                    naruceneStavkes.remove(position);
+                if (AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).getKolicina() == 1) {
+                    AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().remove(position);
                 } else {
-                    getItem(position).setKolicina(getItem(position).getKolicina() - 1);
-                }
+                    AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).setKolicina(-1);                }
                 AppObject.getAppInstance().updateRestoranBase();
                 dataChangeListener.onDataChanged();
             }
         });
 
         TextView naziv = (TextView) view.findViewById(R.id.tv_narudzbina_stavka);
-        naziv.setText(getItem(position).getStavka().getNaziv());
+        naziv.setText(AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).getStavka().getNaziv());
         if (viewLayout == R.layout.list_item_konobar_narudzbina_detalji) {
             TextView cena = (TextView) view.findViewById(R.id.tv_narudzbina_stavka_cena);
-            cena.setText(String.valueOf(getItem(position).getStavka().getCena() * getItem(position).getKolicina()));
+            cena.setText(String.valueOf(AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).getStavka().getCena()
+                    * AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).getKolicina()));
         }
         TextView kolicina = (TextView) view.findViewById(R.id.tv_narudzbina_stavka_kolicina);
-        kolicina.setText("" + getItem(position).getKolicina());
+        kolicina.setText("" + AppObject.getAppInstance().getNarudzbinaById(id).getNenaplaceneStavke().get(position).getKolicina());
 
         return view;
     }

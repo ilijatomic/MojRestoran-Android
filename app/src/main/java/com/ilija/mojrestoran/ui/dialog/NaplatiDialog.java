@@ -38,7 +38,7 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_naplati, null);
         stavke = (ListView) view.findViewById(R.id.stavke_naplati);
-        konobarStavkeListAdapter = new KonobarStavkeListAdapter(getActivity(), R.layout.list_item_konobar_naplati, naruceneStavkes, this);
+        konobarStavkeListAdapter = new KonobarStavkeListAdapter(getActivity(), R.layout.list_item_konobar_naplati, naruceneStavkes, this, narudzbina.getId());
         stavke.setAdapter(konobarStavkeListAdapter);
         tvUkupno = (TextView) view.findViewById(R.id.tv_ukupno_naplati);
         tvUkupno.setText(String.valueOf(izracunajUkupnuCenu(naruceneStavkes)));

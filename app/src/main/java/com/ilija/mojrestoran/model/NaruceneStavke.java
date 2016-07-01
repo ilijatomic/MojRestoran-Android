@@ -6,7 +6,7 @@ package com.ilija.mojrestoran.model;
 public class NaruceneStavke {
 
     private Stavka stavka;
-    private Integer kolicina;
+    private Integer kolicina = 0;
 
     public NaruceneStavke() {
     }
@@ -29,6 +29,6 @@ public class NaruceneStavke {
     }
 
     public void setKolicina(Integer kolicina) {
-        this.kolicina = kolicina;
+        this.kolicina += kolicina;
     }
 }

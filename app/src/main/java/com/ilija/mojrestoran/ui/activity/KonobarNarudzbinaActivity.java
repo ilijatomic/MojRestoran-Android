@@ -27,7 +27,6 @@ import java.util.Iterator;
 public class KonobarNarudzbinaActivity extends BaseActivity implements DataChangeListener, View.OnClickListener, RacunChangeListener {
 
     private AutoCompleteTextView autoCompleteTextView;
-    private ArrayList<NaruceneStavke> listStavke;
     private KonobarStavkeListAdapter konobarStavkeListAdapter;
     private Narudzbina narudzbina;
     private ListView stavke;
@@ -42,7 +41,6 @@ public class KonobarNarudzbinaActivity extends BaseActivity implements DataChang
         final String narudzbinId = intent.getStringExtra(Constants.EXTRA_NARUDZBINA_ID);
         if (narudzbinId != null) {
             narudzbina = AppObject.getAppInstance().getNarudzbinaById(narudzbinId);
-            listStavke = narudzbina.getNenaplaceneStavke();
         }
 
         addToolbar(true);
@@ -55,7 +53,7 @@ public class KonobarNarudzbinaActivity extends BaseActivity implements DataChang
         autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.actv_stavka);
         autoCompleteTextView.setAdapter(arrayAdapter);
 
-        konobarStavkeListAdapter = new KonobarStavkeListAdapter(this, R.layout.list_item_konobar_narudzbina_detalji, listStavke, this);
+        konobarStavkeListAdapter = new KonobarStavkeListAdapter(this, R.layout.list_item_konobar_narudzbina_detalji, narudzbina.getNenaplaceneStavke(), this, narudzbinId);
         stavke = (ListView) findViewById(R.id.lv_narudzbina_stavka);
         stavke.setAdapter(konobarStavkeListAdapter);
 
@@ -74,7 +72,7 @@ public class KonobarNarudzbinaActivity extends BaseActivity implements DataChang
     // TODO ako vec postoji ta stavka samo ++ kolicina a ne nova stavka
     private void updateNarudzbina() {
         NaruceneStavke naruceneStavke = new NaruceneStavke(AppObject.getAppInstance().getstavkaByName(autoCompleteTextView.getText().toString()), 1);
-        listStavke.add(naruceneStavke);
+        narudzbina.getNenaplaceneStavke().add(naruceneStavke);
         AppObject.getAppInstance().updateRestoranBase();
         konobarStavkeListAdapter.notifyDataSetChanged();
         autoCompleteTextView.setText("");
@@ -99,7 +97,7 @@ public class KonobarNarudzbinaActivity extends BaseActivity implements DataChang
             finish();
         } else {
             ToastMessage.showToast(this, "Naplacen deo racuna narudzbine!");
-            for (Iterator<NaruceneStavke> iterator = listStavke.iterator(); iterator.hasNext(); ) {
+            for (Iterator<NaruceneStavke> iterator = narudzbina.getNenaplaceneStavke().iterator(); iterator.hasNext(); ) {
                 NaruceneStavke temp = iterator.next();
                 if (temp.getKolicina() == 0)
                     iterator.remove();

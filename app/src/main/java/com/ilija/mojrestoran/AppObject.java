@@ -231,14 +231,14 @@ public class AppObject extends Application {
     }
 
     public boolean checkIfOtherUserExist(String email, String id) {
-        for (Korisnik korisnik : getMojRestoran().getKorisnikArrayList())
+        for (Korisnik korisnik : mojRestoran.getKorisnikArrayList())
             if (korisnik.getEmail().equals(email) && !korisnik.getId().equals(id))
                 return true;
         return false;
     }
 
     public Narudzbina getNarudzbinaById(String id) {
-        for (Narudzbina narudzbina : getMojRestoran().getNarudzbinaArrayList())
+        for (Narudzbina narudzbina : mojRestoran.getNarudzbinaArrayList())
             if (narudzbina.getId().equals(id))
                 return narudzbina;
         return null;

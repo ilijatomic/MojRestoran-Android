@@ -10,7 +10,7 @@ public class Narudzbina {
 
     private String id;
     private boolean naplacena;
-    private Date datum;
+    private Long datum;
     private Sto sto;
     private Korisnik korisnik;
     private ArrayList<NaruceneStavke> nenaplaceneStavke;
@@ -19,7 +19,7 @@ public class Narudzbina {
     public Narudzbina() {
     }
 
-    public Narudzbina(String id, boolean naplacena, Date datum, Sto sto, Korisnik korisnik, ArrayList<NaruceneStavke> nenaplaceneStavke, ArrayList<Racun> racunArrayList) {
+    public Narudzbina(String id, boolean naplacena, Long datum, Sto sto, Korisnik korisnik, ArrayList<NaruceneStavke> nenaplaceneStavke, ArrayList<Racun> racunArrayList) {
         this.id = id;
         this.naplacena = naplacena;
         this.datum = datum;
@@ -45,11 +45,11 @@ public class Narudzbina {
         this.naplacena = naplacena;
     }
 
-    public Date getDatum() {
+    public Long getDatum() {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(Long datum) {
         this.datum = datum;
     }
 

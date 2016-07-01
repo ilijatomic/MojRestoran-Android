@@ -384,9 +384,9 @@ public class AdminNarudzbineActivity extends BaseActivity implements View.OnClic
                 continue;
             if (selSto != null && !narudzbina.getSto().getId().equals(selSto.getId()))
                 continue;
-            if (dateFrom != null && !narudzbina.getDatum().after(dateFrom))
+            if (dateFrom != null && !new Date(narudzbina.getDatum()).after(dateFrom))
                 continue;
-            if (dateTo != null && !narudzbina.getDatum().before(dateTo))
+            if (dateTo != null && !new Date(narudzbina.getDatum()).before(dateTo))
                 continue;
 
             listNarudzbina.add(narudzbina);

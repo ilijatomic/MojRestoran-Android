@@ -16,6 +16,7 @@ import com.ilija.mojrestoran.model.NaruceneStavke;
 import com.ilija.mojrestoran.model.Narudzbina;
 import com.ilija.mojrestoran.model.Racun;
 import com.ilija.mojrestoran.ui.adapter.KonobarStavkeListAdapter;
+import com.ilija.mojrestoran.util.ToastMessage;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,9 +60,14 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (Double.parseDouble(tvUkupno.getText().toString()) == 0) {
+                            ToastMessage.showToast(getActivity(), "Morate izabrati stavke za naplatu!!");
+                            getDialog().dismiss();
+                            return;
+                        }
                         String racunId = UUID.randomUUID().toString();
                         if (Double.parseDouble(tvUkupno.getText().toString()) == izracunajUkupnuCenu(narudzbina.getNenaplaceneStavke())) {
-                            Racun racun = new Racun(racunId, new Date(), Double.parseDouble(tvUkupno.getText().toString()), naruceneStavkes);
+                            Racun racun = new Racun(racunId, System.currentTimeMillis(), Double.parseDouble(tvUkupno.getText().toString()), naruceneStavkes);
                             narudzbina.setNaplacena(true);
                             narudzbina.getRacunArrayList().add(racun);
                             narudzbina.setNenaplaceneStavke(null);
@@ -76,7 +82,7 @@ public class NaplatiDialog extends DialogFragment implements DataChangeListener 
                                     naruceneStavke.setKolicina(nenaplacena - naplacena);
                                 }
                             }
-                            Racun racun = new Racun(racunId, new Date(), izracunajUkupnuCenu(naruceneStavkes), naruceneStavkes);
+                            Racun racun = new Racun(racunId, System.currentTimeMillis(), izracunajUkupnuCenu(naruceneStavkes), naruceneStavkes);
                             narudzbina.getRacunArrayList().add(racun);
                             AppObject.getAppInstance().updateRestoranBase();
                             racunChangeListener.naplaceno(false);

@@ -16,6 +16,7 @@ import com.ilija.mojrestoran.util.NarudzbinaDetalji;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 public class AdminNarudzbinaDetaljiActivity extends BaseActivity {
@@ -66,7 +67,7 @@ public class AdminNarudzbinaDetaljiActivity extends BaseActivity {
 
     private void popuniDetalje() {
         for (Racun racun : listRacun) {
-            listDetalji.add(new NarudzbinaDetalji(NarudzbinaDetalji.DetaljiType.HEADER, izracunajUkupnuCenuStavki(racun.getNaplaceneStavke()), 0, null, racun.getDatum()));
+            listDetalji.add(new NarudzbinaDetalji(NarudzbinaDetalji.DetaljiType.HEADER, izracunajUkupnuCenuStavki(racun.getNaplaceneStavke()), 0, null, new Date(racun.getDatum())));
             for (NaruceneStavke naruceneStavke : racun.getNaplaceneStavke())
                 listDetalji.add(new NarudzbinaDetalji(NarudzbinaDetalji.DetaljiType.STAVKE, 0, naruceneStavke.getKolicina(), naruceneStavke.getStavka(), null));
         }

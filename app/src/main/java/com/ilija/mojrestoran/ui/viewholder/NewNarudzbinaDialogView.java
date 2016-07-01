@@ -66,12 +66,12 @@ public class NewNarudzbinaDialogView implements DialogView {
     public boolean saveData() {
 
         if (selectedSto == null) {
-            ToastMessage.showToast(context, "Izaberite slobodan selectedSto!");
+            ToastMessage.showToast(context, "Izaberite slobodan sto!");
             return false;
         }
 
         String idNarudzbine = UUID.randomUUID().toString();
-        narudzbina = new Narudzbina(idNarudzbine, false, new Date(), selectedSto, AppObject.getAppInstance().getUlogovanKorisnik(), null, null);
+        narudzbina = new Narudzbina(idNarudzbine, false, System.currentTimeMillis(), selectedSto, AppObject.getAppInstance().getUlogovanKorisnik(), null, null);
         AppObject.getAppInstance().getMojRestoran().getNarudzbinaArrayList().add(narudzbina);
         AppObject.getAppInstance().updateRestoranBase();
 

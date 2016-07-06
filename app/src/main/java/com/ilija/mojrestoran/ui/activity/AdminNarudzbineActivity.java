@@ -370,6 +370,8 @@ public class AdminNarudzbineActivity extends BaseActivity implements View.OnClic
 
         listNarudzbina.clear();
         for (Narudzbina narudzbina : AppObject.getAppInstance().getMojRestoran().getNarudzbinaArrayList()) {
+            if (narudzbina.getRacunArrayList().size() == 0)
+                continue;
             if (!imeSearch.isEmpty() && !narudzbina.getKorisnik().getIme().startsWith(imeSearch))
                 continue;
             if (!prezimeSearch.isEmpty() && !narudzbina.getKorisnik().getPrezime().startsWith(prezimeSearch))
